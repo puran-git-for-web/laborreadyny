@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payroll Portal | Labor Ready NY Inc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>... </header>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <span>Payroll</span></div>
+      <h1>Payroll Portal</h1>
+      <p>Submit timesheets or request PayCard support.</p>
+    </div>
+  </section>
+  <section class="section-inner">
+    <div class="form-wrapper">
+      <form action="https://formspree.io/f/mgvevdok" method="POST" data-formspree novalidate>
+        <p class="required-note">* Required fields</p>
+        <div class="form-row">
+          <div class="form-group"><label for="employee_name">Employee Name *</label><input id="employee_name" name="employee_name" required /></div>
+          <div class="form-group"><label for="phone">Phone *</label><input id="phone" name="phone" required /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="email">Email *</label><input id="email" name="email" type="email" required /></div>
+          <div class="form-group"><label for="pay_option">Pay Option</label><input id="pay_option" name="pay_option" placeholder="Direct Deposit / PayCard" /></div>
+        </div>
+        <div class="form-group"><label for="notes">Timesheet / Payroll Notes</label><textarea id="notes" name="notes"></textarea></div>
+        <button type="submit" class="btn-submit">Submit Payroll Request</button>
+        <div class="form-success">Thanks! Your request was submitted.</div>
+        <div class="form-error-msg">Something went wrong. Please call us directly.</div>
+      </form>
+    </div>
+  </section>
+  <footer>...</footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

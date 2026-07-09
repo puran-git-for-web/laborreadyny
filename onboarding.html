@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Onboarding | Labor Ready NY Inc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>... </header>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="portal.html">Portal</a> / <span>Onboarding</span></div>
+      <h1>Client Onboarding</h1>
+      <p>Register your company and project details to start working with us.</p>
+    </div>
+  </section>
+  <section class="section-inner">
+    <div class="form-wrapper">
+      <form action="https://formspree.io/f/mgvevdok" method="POST" data-formspree novalidate>
+        <p class="required-note">* Required fields</p>
+        <div class="form-row">
+          <div class="form-group"><label for="company">Company Name *</label><input id="company" name="company" required /></div>
+          <div class="form-group"><label for="business_type">Business Type *</label><input id="business_type" name="business_type" required /></div>
+        </div>
+        <div class="form-group"><label for="address">Business Address *</label><input id="address" name="address" required /></div>
+        <div class="form-row">
+          <div class="form-group"><label for="city">City *</label><input id="city" name="city" required /></div>
+          <div class="form-group"><label for="state_zip">State / ZIP *</label><input id="state_zip" name="state_zip" required /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="contact_name">Contact Name *</label><input id="contact_name" name="contact_name" required /></div>
+          <div class="form-group"><label for="contact_phone">Phone *</label><input id="contact_phone" name="contact_phone" required /></div>
+        </div>
+        <div class="form-group"><label for="notes">Project Details / Notes</label><textarea id="notes" name="notes"></textarea></div>
+        <div class="form-group checkbox-row"><input type="checkbox" id="agree" name="agree" required /><label for="agree">I confirm this information is accurate.</label></div>
+        <button type="submit" class="btn-submit">Submit Onboarding Request</button>
+        <div class="form-success">Thanks! Your request was submitted.</div>
+        <div class="form-error-msg">Something went wrong. Please call us directly.</div>
+      </form>
+    </div>
+  </section>
+  <footer>...</footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
