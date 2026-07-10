@@ -338,21 +338,21 @@
             btn.disabled = false;
           }
         });
+    });
+  });
 
-        // Make card sections fully clickable when they contain a primary link
-        document.querySelectorAll('.industry-card, .client-card, .borough-card, .service-media-card, .portal-card, .process-step, .value-card').forEach(function (card) {
-          const link = card.querySelector('a[href]');
-          if (!link) {
-            return;
-          }
-          card.classList.add('clickable-card');
-          card.addEventListener('click', function (event) {
-            if (event.target && event.target.closest('a, button, input, textarea, select, label')) {
-              return;
-            }
-            window.location.href = link.href;
-          });
-        });
+  // Make card sections fully clickable when they contain a primary link
+  document.querySelectorAll('.industry-card, .client-card, .borough-card, .service-media-card, .portal-card, .process-step, .value-card').forEach(function (card) {
+    const link = card.querySelector('a[href]');
+    if (!link) {
+      return;
+    }
+    card.classList.add('clickable-card');
+    card.addEventListener('click', function (event) {
+      if (event.target && event.target.closest('a, button, input, textarea, select, label')) {
+        return;
+      }
+      window.location.href = link.href;
     });
   });
 
