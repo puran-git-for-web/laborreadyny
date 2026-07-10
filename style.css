@@ -338,22 +338,6 @@ nav a:hover {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
-.hero-brand-banner {
-  max-width: 520px;
-  margin: 0 0 1.4rem;
-  border: 1px solid rgba(255, 165, 0, 0.35);
-  border-radius: 14px;
-  overflow: hidden;
-  background: rgba(7, 16, 31, 0.45);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 24px rgba(255, 165, 0, 0.2);
-}
-
-.hero-brand-banner img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .hero-btns {
   display: flex;
   flex-wrap: wrap;
@@ -1324,10 +1308,6 @@ textarea {
     padding: 6rem 0 4rem;
   }
 
-  .hero-brand-banner {
-    max-width: 100%;
-  }
-  
   .form-row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
