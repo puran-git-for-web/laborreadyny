@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <defs>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#102542"/>
+      <stop offset="100%" stop-color="#1f4268"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#g3)"/>
+  <rect x="90" y="380" width="720" height="18" fill="#fca327"/>
+  <rect x="240" y="250" width="300" height="90" rx="12" fill="#223f61"/>
+  <rect x="500" y="215" width="80" height="125" rx="8" fill="#2a507b"/>
+  <rect x="545" y="180" width="175" height="24" fill="#fca327"/>
+  <rect x="705" y="145" width="24" height="58" fill="#fca327"/>
+  <circle cx="300" cy="360" r="44" fill="#141d2c"/>
+  <circle cx="500" cy="360" r="44" fill="#141d2c"/>
+  <circle cx="300" cy="360" r="20" fill="#ffa500"/>
+  <circle cx="500" cy="360" r="20" fill="#ffa500"/>
+  <text x="90" y="90" fill="#ffd27a" font-family="Arial" font-size="35" font-weight="700">Equipment & Operators</text>
+</svg>

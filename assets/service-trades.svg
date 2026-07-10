@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142a45"/>
+      <stop offset="100%" stop-color="#274d78"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#g2)"/>
+  <rect x="90" y="100" width="720" height="330" rx="14" fill="#0f223b" opacity="0.7"/>
+  <g stroke="#ffb22f" stroke-width="8" stroke-linecap="round">
+    <line x1="190" y1="190" x2="340" y2="340"/>
+    <line x1="340" y1="190" x2="190" y2="340"/>
+    <line x1="450" y1="170" x2="450" y2="350"/>
+    <line x1="410" y1="230" x2="490" y2="230"/>
+    <line x1="610" y1="170" x2="700" y2="260"/>
+    <line x1="610" y1="350" x2="700" y2="260"/>
+  </g>
+  <rect x="120" y="380" width="660" height="24" fill="#ff9f1c" opacity="0.72"/>
+  <text x="90" y="72" fill="#ffd27a" font-family="Arial" font-size="35" font-weight="700">Skilled Trades & Specialists</text>
+</svg>
