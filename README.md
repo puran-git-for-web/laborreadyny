@@ -9,7 +9,7 @@ The site is published from the repository root through GitHub Pages.
 ### Main domain
 
 - Production domain: `https://laborreadyny.xyz`
-- Custom domain file: `/home/runner/work/laborreadyny/laborreadyny/CNAME`
+- Custom domain file: `CNAME`
 - Sitemap: `https://laborreadyny.xyz/sitemap.xml`
 
 ### IONOS DNS
