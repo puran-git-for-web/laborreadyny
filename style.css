@@ -1377,6 +1377,55 @@ textarea {
   
   .hero {
     padding: 6rem 0 4rem;
+    min-height: auto;
+  }
+
+  .construction-elements {
+    display: none;
+  }
+
+  .particle-field {
+    opacity: 0.42;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 7.2vw, 2.6rem);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 1.4rem;
+  }
+
+  .tagline {
+    padding: 0.85rem 1rem;
+    gap: 0.3rem;
+  }
+
+  .tagline strong {
+    font-size: 0.98rem;
+  }
+
+  .tagline span {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .service-media-card img {
+    height: 205px;
+  }
+
+  .contact-band h2 {
+    font-size: 2rem;
+  }
+
+  .contact-band p {
+    font-size: 1rem;
+  }
+
+  .brand-banner-section {
+    padding: 1.4rem 1rem 2rem;
   }
 
   .form-row {
@@ -1410,7 +1459,19 @@ textarea {
   .hero h1 {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
   }
-  
+
+  .particle-field {
+    opacity: 0.3;
+  }
+
+  .service-media-card img {
+    height: 190px;
+  }
+
+  .tagline {
+    border-radius: 6px;
+  }
+
   .section-title {
     font-size: clamp(1.5rem, 2.5vw, 2rem);
   }
