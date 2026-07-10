@@ -28,7 +28,7 @@
         + '    <a href="https://payroll.laborreadyny.xyz" target="_blank" rel="noopener noreferrer">Payroll</a>'
         + '    <a href="contact.html">Contact</a>'
         + '  </nav>'
-        + '  <a href="portal.html" class="btn-cta btn-sweep">Get Workers Now</a>'
+        + '  <a href="dispatch.html" class="btn-cta btn-sweep">Get Workers Now</a>'
         + '</div>';
     }
 
@@ -353,6 +353,21 @@
             window.location.href = link.href;
           });
         });
+    });
+  });
+
+  // Make card sections fully clickable when they contain a primary link
+  document.querySelectorAll('.industry-card, .client-card, .borough-card, .service-media-card, .portal-card, .process-step, .value-card').forEach(function (card) {
+    const link = card.querySelector('a[href]');
+    if (!link) {
+      return;
+    }
+    card.classList.add('clickable-card');
+    card.addEventListener('click', function (event) {
+      if (event.target && event.target.closest('a, button, input, textarea, select, label')) {
+        return;
+      }
+      window.location.href = link.href;
     });
   });
 
