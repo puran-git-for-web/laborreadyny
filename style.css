@@ -1186,6 +1186,11 @@ textarea {
   50% { transform: translateY(-6px); }
 }
 
+@keyframes mobile-glow-shift {
+  0%, 100% { transform: scale(1) translateX(0); opacity: 0.32; }
+  50% { transform: scale(1.08) translateX(2%); opacity: 0.5; }
+}
+
 .float-call {
   position: fixed;
   right: 2rem;
@@ -1385,7 +1390,23 @@ textarea {
   }
 
   .particle-field {
-    opacity: 0.42;
+    display: none;
+  }
+
+  .ambient-construction {
+    display: none;
+  }
+
+  .float-call,
+  .back-to-top {
+    display: none !important;
+  }
+
+  .hero::before {
+    background:
+      radial-gradient(circle at 18% 34%, rgba(255, 165, 0, 0.2) 0%, transparent 48%),
+      radial-gradient(circle at 76% 66%, rgba(255, 107, 53, 0.16) 0%, transparent 52%);
+    animation: mobile-glow-shift 9s ease-in-out infinite;
   }
 
   .hero h1 {
@@ -1461,7 +1482,7 @@ textarea {
   }
 
   .particle-field {
-    opacity: 0.3;
+    display: none;
   }
 
   .service-media-card img {
