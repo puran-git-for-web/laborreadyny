@@ -1325,16 +1325,40 @@ textarea {
   }
   
   .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: 0.55rem;
     padding: 0.6rem 1rem;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 0.55rem;
   }
   
   .brand-logo {
-    height: 44px;
-    width: 44px;
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 165, 0, 0.35);
+    box-shadow: 0 0 18px rgba(255, 165, 0, 0.28);
+  }
+
+  .brand-text {
+    min-width: 0;
   }
   
   .brand-name {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.1;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-sub {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
   }
   
   nav {
@@ -1360,7 +1384,7 @@ textarea {
   }
   
   .section-inner {
-    padding: 4rem 1.25rem;
+    padding: 3.4rem 1rem;
   }
   
   .services-grid, .why-grid, .testimonials-grid, .portal-grid, .values-grid, .cert-grid, .contact-details, .footer-inner, .process-grid {
@@ -1378,6 +1402,20 @@ textarea {
   
   .stat-strip-inner {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
+    padding: 2rem 1rem;
+  }
+
+  .stat-item {
+    padding: 0.75rem 0.45rem;
+  }
+
+  .stat-num {
+    font-size: 2.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.96rem;
   }
   
   .hero {
@@ -1466,11 +1504,52 @@ textarea {
     width: 100%;
     text-align: center;
   }
+
+  .header-inner > .btn-cta {
+    width: auto;
+    min-width: 105px;
+    padding: 0.68rem 0.82rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.45);
+  }
 }
 
 @media (max-width: 480px) {
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 0.45rem;
+    padding: 0.55rem 0.85rem;
+  }
+
+  .brand-logo {
+    height: 46px;
+    width: 46px;
+  }
+
+  .brand-name {
+    font-size: 0.89rem;
+    letter-spacing: 0.05em;
+  }
+
+  .brand-sub {
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+  }
+
+  .header-inner > .btn-cta {
+    min-width: 98px;
+    padding: 0.62rem 0.72rem;
+    font-size: 0.78rem;
+    border-radius: 18px;
+  }
+
   .stat-strip-inner {
     grid-template-columns: 1fr;
+    padding: 1.6rem 0.9rem;
   }
   
   .checkbox-grid {
