@@ -251,6 +251,28 @@
     }
   }
 
+  function scrollToAccordionItem(item) {
+    const headerEl = document.querySelector('header');
+    const headerOffset = headerEl ? headerEl.offsetHeight + 14 : 90;
+    const targetTop = item.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  }
+
+  function openAccordionById(id, shouldScroll) {
+    const targetItem = document.getElementById(id);
+    if (!targetItem || !targetItem.classList.contains('accordion-item')) {
+      return false;
+    }
+    document.querySelectorAll('.accordion-item').forEach(function (item) {
+      closeAccordionItem(item);
+    });
+    openAccordionItem(targetItem);
+    if (shouldScroll) {
+      scrollToAccordionItem(targetItem);
+    }
+    return true;
+  }
+
   document.querySelectorAll('.accordion-item').forEach(function (item) {
     const header = item.querySelector('.accordion-header');
     const content = item.querySelector('.accordion-content');
@@ -271,8 +293,35 @@
           openAccordionItem(item);
         }
       });
+
     }
   });
+
+  document.querySelectorAll('.service-media-link[href^="#module-"]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      const rawTarget = link.getAttribute('href') || '';
+      const targetId = rawTarget.replace('#', '');
+      if (!targetId) {
+        return;
+      }
+      const handled = openAccordionById(targetId, true);
+      if (handled) {
+        event.preventDefault();
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', '#' + targetId);
+        } else {
+          window.location.hash = targetId;
+        }
+      }
+    });
+  });
+
+  const initialHash = (window.location.hash || '').replace('#', '');
+  if (initialHash.indexOf('module-') === 0) {
+    window.requestAnimationFrame(function () {
+      openAccordionById(initialHash, true);
+    });
+  }
 
   window.addEventListener('resize', function () {
     document.querySelectorAll('.accordion-item.open').forEach(function (item) {
