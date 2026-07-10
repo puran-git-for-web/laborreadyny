@@ -1338,12 +1338,12 @@ textarea {
   }
   
   .brand-logo {
-    height: 50px;
-    width: 50px;
+    height: 58px;
+    width: 58px;
     padding: 2px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 165, 0, 0.35);
-    box-shadow: 0 0 18px rgba(255, 165, 0, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 165, 0, 0.42);
+    box-shadow: 0 0 24px rgba(255, 165, 0, 0.38);
   }
 
   .brand-text {
@@ -1351,7 +1351,7 @@ textarea {
   }
   
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.1;
     letter-spacing: 0.06em;
   }
@@ -1526,12 +1526,12 @@ textarea {
   }
 
   .brand-logo {
-    height: 46px;
-    width: 46px;
+    height: 52px;
+    width: 52px;
   }
 
   .brand-name {
-    font-size: 0.89rem;
+    font-size: 0.93rem;
     letter-spacing: 0.05em;
   }
 
