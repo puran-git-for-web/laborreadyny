@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <defs>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#132a46"/>
+      <stop offset="100%" stop-color="#2a4f78"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#g4)"/>
+  <path d="M450 95 L690 180 L640 360 L450 450 L260 360 L210 180 Z" fill="#10233c" opacity="0.84"/>
+  <path d="M450 130 L640 198 L602 340 L450 407 L298 340 L260 198 Z" fill="#1b3a5d"/>
+  <rect x="415" y="205" width="70" height="115" rx="10" fill="#ffb22f"/>
+  <rect x="415" y="340" width="70" height="35" rx="8" fill="#ffb22f"/>
+  <text x="130" y="78" fill="#ffd27a" font-family="Arial" font-size="35" font-weight="700">Safety & Compliance</text>
+</svg>

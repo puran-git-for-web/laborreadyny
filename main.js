@@ -21,6 +21,8 @@
         + '  <nav id="mainNav" aria-label="Main navigation">'
         + '    <a href="index.html">Home</a>'
         + '    <a href="services.html">Services</a>'
+        + '    <a href="index.html#industries">Industries</a>'
+        + '    <a href="index.html#clients">Clients</a>'
         + '    <a href="about.html">About</a>'
         + '    <a href="portal.html">Portal</a>'
         + '    <a href="https://payroll.laborreadyny.xyz" target="_blank" rel="noopener noreferrer">Payroll</a>'
@@ -96,7 +98,12 @@
   // Active Link Detection
   document.querySelectorAll('nav a').forEach(function (link) {
     const href = (link.getAttribute('href') || '').toLowerCase();
-    if (href === page || (page === '' && href === 'index.html')) {
+    const pageWithHash = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase() + (window.location.hash || '').toLowerCase();
+    if (
+      href === page
+      || (page === '' && href === 'index.html')
+      || (href === pageWithHash)
+    ) {
       link.classList.add('active');
     }
   });
@@ -188,15 +195,15 @@
     ambient.className = 'ambient-construction';
     ambient.setAttribute('aria-hidden', 'true');
     const icons = ['🏗️', '⚙️', '🔨', '⚒️', '🦺', '📐', '🚧', '🧱', '🔩', '🏢'];
-    for (let i = 0; i < 18; i += 1) {
+    for (let i = 0; i < 34; i += 1) {
       const token = document.createElement('span');
       token.className = 'ambient-icon';
       token.textContent = icons[i % icons.length];
       token.style.left = Math.random() * 100 + '%';
       token.style.top = Math.random() * 100 + '%';
       token.style.animationDelay = (Math.random() * 8).toFixed(2) + 's';
-      token.style.animationDuration = (10 + Math.random() * 10).toFixed(2) + 's';
-      token.style.fontSize = (18 + Math.random() * 16).toFixed(0) + 'px';
+      token.style.animationDuration = (8 + Math.random() * 12).toFixed(2) + 's';
+      token.style.fontSize = (14 + Math.random() * 20).toFixed(0) + 'px';
       ambient.appendChild(token);
     }
     document.body.appendChild(ambient);
@@ -247,6 +254,29 @@
 
   // Form Handling
   document.querySelectorAll('form[data-formspree]').forEach(function (form) {
+    const heading = document.querySelector('.page-hero h1');
+    const formName = heading ? heading.textContent.trim() : 'Website Form';
+    if (!form.querySelector('input[name="_subject"]')) {
+      const subject = document.createElement('input');
+      subject.type = 'hidden';
+      subject.name = '_subject';
+      subject.value = 'Labor Ready NY - ' + formName;
+      form.appendChild(subject);
+    }
+    if (!form.querySelector('input[name="source_page"]')) {
+      const source = document.createElement('input');
+      source.type = 'hidden';
+      source.name = 'source_page';
+      source.value = window.location.href;
+      form.appendChild(source);
+    }
+    if (!form.querySelector('input[name="submitted_at"]')) {
+      const submittedAt = document.createElement('input');
+      submittedAt.type = 'hidden';
+      submittedAt.name = 'submitted_at';
+      submittedAt.value = new Date().toISOString();
+      form.appendChild(submittedAt);
+    }
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       const btn = form.querySelector('[type="submit"]');
