@@ -216,7 +216,7 @@ nav a:hover {
   overflow: hidden;
   background:
     linear-gradient(135deg, rgba(8, 18, 36, 0.48) 0%, rgba(13, 34, 64, 0.5) 50%, rgba(10, 22, 40, 0.56) 100%),
-    url("assets/hero-premium.png") center center / cover no-repeat;
+    url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80") center center / cover no-repeat;
   color: white;
   padding: 8rem 0 6rem;
   min-height: 700px;
@@ -569,11 +569,6 @@ nav a:hover {
   object-fit: cover;
   object-position: center;
 }
-
-.services-media-grid .service-media-link:nth-child(1) img { object-position: center 35%; }
-.services-media-grid .service-media-link:nth-child(2) img { object-position: center 42%; }
-.services-media-grid .service-media-link:nth-child(3) img { object-position: center 55%; }
-.services-media-grid .service-media-link:nth-child(4) img { object-position: center 45%; }
 
 .service-media-card:hover {
   transform: translateY(-5px);
