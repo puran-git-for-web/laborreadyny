@@ -376,13 +376,13 @@ nav a:hover {
 }
 
 .section-alt {
-  background: linear-gradient(135deg, rgba(255, 165, 0, 0.06) 0%, rgba(255, 107, 53, 0.04) 100%);
-  border-top: 1px solid rgba(255, 165, 0, 0.15);
-  border-bottom: 1px solid rgba(255, 165, 0, 0.15);
+  background: linear-gradient(135deg, rgba(225, 83, 31, 0.15) 0%, rgba(255, 165, 0, 0.09) 100%);
+  border-top: 1px solid rgba(255, 165, 0, 0.28);
+  border-bottom: 1px solid rgba(255, 165, 0, 0.24);
 }
 
 .section-soft {
-  background: linear-gradient(135deg, rgba(14, 30, 54, 0.72) 0%, rgba(13, 34, 64, 0.4) 100%);
+  background: linear-gradient(135deg, rgba(14, 30, 54, 0.82) 0%, rgba(18, 44, 78, 0.62) 100%);
 }
 
 .section-tag {
@@ -552,12 +552,27 @@ nav a:hover {
   background: rgba(13, 34, 64, 0.28);
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .service-media-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
+}
+
+.service-media-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 165, 0, 0.65);
+  box-shadow: 0 16px 38px rgba(255, 165, 0, 0.26);
+}
+
+.service-media-link {
+  display: block;
+}
+
+.clickable-card {
+  cursor: pointer;
 }
 
 .service-media-body {
@@ -570,6 +585,18 @@ nav a:hover {
   font-family: Oswald, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 0.7rem;
+  color: #ffbd47;
+  font-weight: 700;
+}
+
+.card-link:hover {
+  color: #ffd27a;
+  text-decoration: underline;
 }
 
 .industry-grid, .client-grid {
@@ -619,6 +646,35 @@ nav a:hover {
   font-size: 1.03rem;
 }
 
+.about-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+
+.directory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.directory-table th,
+.directory-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.85rem 0.9rem;
+  border-bottom: 1px dashed rgba(255, 165, 0, 0.28);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.directory-table th {
+  color: #ffbd47;
+  width: 34%;
+}
+
+.directory-table a {
+  color: #ffd27a;
+}
+
 .accordion-header {
   padding: 1.5rem;
   background: rgba(28, 58, 94, 0.3);
@@ -655,11 +711,7 @@ nav a:hover {
 .accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.accordion-item.open .accordion-content {
-  max-height: 500px;
+  transition: max-height 0.45s ease;
 }
 
 .accordion-body {
@@ -1030,16 +1082,16 @@ textarea {
 
 .ambient-icon {
   position: absolute;
-  color: rgba(255, 165, 0, 0.34);
-  text-shadow: 0 0 16px rgba(255, 165, 0, 0.55);
+  color: rgba(255, 165, 0, 0.45);
+  text-shadow: 0 0 18px rgba(255, 165, 0, 0.62);
   filter: saturate(1.1);
   animation: drift 12s ease-in-out infinite;
 }
 
 @keyframes drift {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.18; }
-  30% { transform: translate3d(18px, -28px, 0) rotate(6deg); opacity: 0.36; }
-  60% { transform: translate3d(-14px, 22px, 0) rotate(-5deg); opacity: 0.24; }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0.22; }
+  30% { transform: translate3d(22px, -34px, 0) rotate(8deg); opacity: 0.52; }
+  60% { transform: translate3d(-18px, 24px, 0) rotate(-7deg); opacity: 0.34; }
 }
 
 @keyframes float-card {
@@ -1144,6 +1196,10 @@ textarea {
   .boroughs-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .about-media-grid {
+    grid-template-columns: 1fr;
+  }
   
   .process-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1218,7 +1274,8 @@ textarea {
   .services-media-grid,
   .industry-grid,
   .client-grid,
-  .boroughs-grid {
+  .boroughs-grid,
+  .about-media-grid {
     grid-template-columns: 1fr;
   }
   

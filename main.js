@@ -195,14 +195,14 @@
     ambient.className = 'ambient-construction';
     ambient.setAttribute('aria-hidden', 'true');
     const icons = ['🏗️', '⚙️', '🔨', '⚒️', '🦺', '📐', '🚧', '🧱', '🔩', '🏢'];
-    for (let i = 0; i < 34; i += 1) {
+    for (let i = 0; i < 52; i += 1) {
       const token = document.createElement('span');
       token.className = 'ambient-icon';
       token.textContent = icons[i % icons.length];
       token.style.left = Math.random() * 100 + '%';
       token.style.top = Math.random() * 100 + '%';
       token.style.animationDelay = (Math.random() * 8).toFixed(2) + 's';
-      token.style.animationDuration = (8 + Math.random() * 12).toFixed(2) + 's';
+      token.style.animationDuration = (6 + Math.random() * 14).toFixed(2) + 's';
       token.style.fontSize = (14 + Math.random() * 20).toFixed(0) + 'px';
       ambient.appendChild(token);
     }
@@ -223,7 +223,7 @@
   // Floating Particles
   const particleField = document.querySelector('.particle-field');
   if (particleField) {
-    for (let i = 0; i < 35; i += 1) {
+    for (let i = 0; i < 56; i += 1) {
       const dot = document.createElement('div');
       dot.className = 'particle';
       const size = Math.random() * 5 + 2;
@@ -235,21 +235,52 @@
   }
 
   // Accordion Functionality
+  function closeAccordionItem(item) {
+    item.classList.remove('open');
+    const content = item.querySelector('.accordion-content');
+    if (content) {
+      content.style.maxHeight = '0px';
+    }
+  }
+
+  function openAccordionItem(item) {
+    item.classList.add('open');
+    const content = item.querySelector('.accordion-content');
+    if (content) {
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  }
+
   document.querySelectorAll('.accordion-item').forEach(function (item) {
     const header = item.querySelector('.accordion-header');
+    const content = item.querySelector('.accordion-content');
+    if (item.classList.contains('open')) {
+      openAccordionItem(item);
+    } else if (content) {
+      content.style.maxHeight = '0px';
+    }
     if (header) {
       header.addEventListener('click', function () {
         const wasOpen = item.classList.contains('open');
         // Close all accordion items
         document.querySelectorAll('.accordion-item').forEach(function (i) {
-          i.classList.remove('open');
+          closeAccordionItem(i);
         });
         // Open clicked item if it wasn't already open
         if (!wasOpen) {
-          item.classList.add('open');
+          openAccordionItem(item);
         }
       });
     }
+  });
+
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('.accordion-item.open').forEach(function (item) {
+      const content = item.querySelector('.accordion-content');
+      if (content) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
   });
 
   // Form Handling
@@ -306,6 +337,21 @@
             btn.textContent = originalLabel;
             btn.disabled = false;
           }
+        });
+
+        // Make card sections fully clickable when they contain a primary link
+        document.querySelectorAll('.industry-card, .client-card, .borough-card, .service-media-card, .portal-card, .process-step, .value-card').forEach(function (card) {
+          const link = card.querySelector('a[href]');
+          if (!link) {
+            return;
+          }
+          card.classList.add('clickable-card');
+          card.addEventListener('click', function (event) {
+            if (event.target && event.target.closest('a, button, input, textarea, select, label')) {
+              return;
+            }
+            window.location.href = link.href;
+          });
         });
     });
   });
