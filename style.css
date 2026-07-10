@@ -312,19 +312,6 @@ nav a:hover {
   text-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
 }
 
-.hero-brand-inline {
-  width: min(430px, 84vw);
-  margin: 0 0 1rem;
-  opacity: 0.92;
-}
-
-.hero-brand-inline img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.45));
-}
-
 .hero h1 {
   font-family: Oswald, Arial, sans-serif;
   font-size: clamp(2.8rem, 5.5vw, 4rem);
@@ -374,6 +361,7 @@ nav a:hover {
 .tagline strong {
   font-size: 1.08rem;
   letter-spacing: 0.01em;
+  font-style: italic;
 }
 
 .tagline span {
@@ -913,6 +901,26 @@ nav a:hover {
   color: #ffa500;
   font-weight: 700;
   margin-bottom: 0.5rem;
+}
+
+.brand-banner-section {
+  padding: 2.2rem 1.25rem 2.8rem;
+  border-top: 1px solid rgba(255, 165, 0, 0.2);
+}
+
+.brand-banner-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 165, 0, 0.28);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+.brand-banner-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 footer {
