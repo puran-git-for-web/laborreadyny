@@ -397,6 +397,10 @@
       if (!link) {
         return;
       }
+      if (card.dataset.clickableBound === 'true') {
+        return;
+      }
+      card.dataset.clickableBound = 'true';
       card.classList.add('clickable-card');
       card.addEventListener('click', function (event) {
         if (event.target && event.target.closest('a, button, input, textarea, select, label')) {

@@ -72,7 +72,7 @@ DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 If rollback is required:
 1. Identify the last known-good static release commit:
    ```bash
-   git log --oneline -- README.md index.html
+   git log --oneline -- README.md index.html public/index.html
    ```
 2. In Vercel, redeploy that commit from the project Deployments tab (or run `vercel --prod` from a checkout of that commit).
 3. If needed, reset the branch to that commit and push a rollback PR:
