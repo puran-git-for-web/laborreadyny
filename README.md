@@ -70,6 +70,13 @@ DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 ## Rollback notes
 
 If rollback is required:
-1. Re-deploy the previous static-site commit.
-2. Restore static hosting workflow/domain settings.
-3. Keep DNS unchanged; only switch deployment target back to prior known-good revision.
+1. Identify the last known-good static release commit:
+   ```bash
+   git log --oneline -- README.md index.html
+   ```
+2. In Vercel, redeploy that commit from the project Deployments tab (or run `vercel --prod` from a checkout of that commit).
+3. If needed, reset the branch to that commit and push a rollback PR:
+   ```bash
+   git checkout <known-good-sha>
+   ```
+4. Keep DNS unchanged; only switch deployment target back to the known-good revision.
