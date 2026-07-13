@@ -143,7 +143,7 @@
     callBtn.href = 'tel:7182629606';
     callBtn.className = 'float-call';
     callBtn.setAttribute('aria-label', 'Call Labor Ready NY Inc');
-    callBtn.textContent = 'ðŸ“ž';
+    callBtn.textContent = 'Call';
     document.body.appendChild(callBtn);
   }
   if (!document.getElementById('backToTop') && pageKey !== 'payroll') {
@@ -152,7 +152,7 @@
     topBtn.id = 'backToTop';
     topBtn.className = 'back-to-top';
     topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.textContent = 'â†‘';
+    topBtn.textContent = '^';
     document.body.appendChild(topBtn);
   }
 
@@ -215,8 +215,8 @@
     const ambient = document.createElement('div');
     ambient.className = 'ambient-construction';
     ambient.setAttribute('aria-hidden', 'true');
-    const icons = ['ðŸ—ï¸', 'âš™ï¸', 'ðŸ”¨', 'âš’ï¸', 'ðŸ¦º', 'ðŸ“', 'ðŸš§', 'ðŸ§±', 'ðŸ”©', 'ðŸ¢'];
-    for (let i = 0; i < 52; i += 1) {
+    const icons = ['NY', 'OPS', 'SITE', 'CREW', 'SAFE', 'BUILD', 'TRADE', 'PLAN'];
+    for (let i = 0; i < 36; i += 1) {
       const token = document.createElement('span');
       token.className = 'ambient-icon';
       token.textContent = icons[i % icons.length];
@@ -224,7 +224,7 @@
       token.style.top = Math.random() * 100 + '%';
       token.style.animationDelay = (Math.random() * 8).toFixed(2) + 's';
       token.style.animationDuration = (6 + Math.random() * 14).toFixed(2) + 's';
-      token.style.fontSize = (14 + Math.random() * 20).toFixed(0) + 'px';
+      token.style.fontSize = (10 + Math.random() * 10).toFixed(0) + 'px';
       ambient.appendChild(token);
     }
     document.body.appendChild(ambient);
@@ -385,7 +385,7 @@
       const error = form.querySelector('.form-error-msg');
       const originalLabel = btn ? btn.textContent : '';
       if (btn) {
-        btn.textContent = 'Sendingâ€¦';
+        btn.textContent = 'Sending...';
         btn.disabled = true;
       }
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
