@@ -278,7 +278,11 @@ nav a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 18% 45%, rgba(255, 165, 0, 0.18) 0%, transparent 46%);
+  background:
+    radial-gradient(circle, rgba(95, 199, 255, 0.34) 1px, transparent 1.8px) 0 0 / 42px 42px,
+    radial-gradient(circle at 18% 45%, rgba(95, 199, 255, 0.16) 0%, transparent 52%),
+    linear-gradient(180deg, rgba(2, 10, 24, 0.06) 0%, rgba(2, 10, 24, 0.18) 100%);
+  animation: hero-grid-drift 16s linear infinite;
   pointer-events: none;
 }
 
@@ -286,7 +290,11 @@ nav a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(2, 9, 22, 0.1) 0%, rgba(2, 9, 22, 0.22) 100%);
+  background:
+    linear-gradient(102deg, transparent 0%, transparent 28%, rgba(92, 195, 255, 0.26) 31%, transparent 34%, transparent 100%),
+    linear-gradient(94deg, transparent 0%, transparent 55%, rgba(102, 210, 255, 0.22) 58%, transparent 61%, transparent 100%);
+  opacity: 0.78;
+  animation: hero-wave-shift 13s ease-in-out infinite;
   pointer-events: none;
 }
 
@@ -309,6 +317,7 @@ nav a:hover {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  display: none;
 }
 
 .element {
@@ -329,6 +338,16 @@ nav a:hover {
 @keyframes float {
   0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
   50% { transform: translateY(-25px) translateX(15px); opacity: 0.8; }
+}
+
+@keyframes hero-grid-drift {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 42px 42px, 0 0, 0 0; }
+}
+
+@keyframes hero-wave-shift {
+  0%, 100% { transform: translateX(-2%) translateY(0); }
+  50% { transform: translateX(2%) translateY(1%); }
 }
 
 @keyframes float-slow {
@@ -1090,6 +1109,21 @@ footer {
   text-align: center;
 }
 
+.footer-credit {
+  margin-top: 0.45rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.footer-credit a {
+  color: rgba(255, 205, 123, 0.95);
+  font-weight: 600;
+}
+
+.footer-credit a:hover {
+  color: #ffd798;
+}
+
 .footer-logo {
   width: 78px;
   height: 78px;
@@ -1549,9 +1583,9 @@ textarea {
 
   .hero::before {
     background:
-      radial-gradient(circle at 18% 34%, rgba(255, 165, 0, 0.2) 0%, transparent 48%),
-      radial-gradient(circle at 76% 66%, rgba(255, 107, 53, 0.16) 0%, transparent 52%);
-    animation: mobile-glow-shift 9s ease-in-out infinite;
+      radial-gradient(circle, rgba(95, 199, 255, 0.3) 1px, transparent 1.8px) 0 0 / 34px 34px,
+      radial-gradient(circle at 18% 34%, rgba(95, 199, 255, 0.16) 0%, transparent 52%);
+    animation: hero-grid-drift 18s linear infinite;
   }
 
   .hero h1 {
