@@ -147,25 +147,6 @@
     });
   }
 
-  // Keep utility actions present on all pages
-  if (!document.querySelector('.float-call') && pageKey !== 'payroll') {
-    const callBtn = document.createElement('a');
-    callBtn.href = 'tel:7182629606';
-    callBtn.className = 'float-call';
-    callBtn.setAttribute('aria-label', 'Call Labor Ready NY Inc');
-    callBtn.textContent = 'Call';
-    document.body.appendChild(callBtn);
-  }
-  if (!document.getElementById('backToTop') && pageKey !== 'payroll') {
-    const topBtn = document.createElement('button');
-    topBtn.type = 'button';
-    topBtn.id = 'backToTop';
-    topBtn.className = 'back-to-top';
-    topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.textContent = '^';
-    document.body.appendChild(topBtn);
-  }
-
   // Back to Top Button
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {

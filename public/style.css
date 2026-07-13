@@ -1440,6 +1440,12 @@ textarea {
   box-shadow: 0 0 60px rgba(255, 165, 0, 1);
 }
 
+/* Hide legacy floating utility buttons to avoid overlap/stray placement */
+.float-call,
+.back-to-top {
+  display: none !important;
+}
+
 .back-to-top {
   position: fixed;
   right: 2rem;
