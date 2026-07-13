@@ -1,5 +1,30 @@
 (function () {
-  const page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  const routes = {
+    home: '/',
+    services: '/services',
+    industries: '/industries',
+    clients: '/clients',
+    about: '/about',
+    portal: '/portal',
+    contact: '/contact',
+    dispatch: '/dispatch',
+    onboarding: '/onboarding',
+    apply: '/apply',
+    payroll: '/payroll'
+  };
+
+  function currentPageKey() {
+    const rawPath = (window.location.pathname || '/').toLowerCase();
+    const cleaned = rawPath.replace(/\/+$/, '') || '/';
+    if (cleaned === '/' || cleaned === '/index.html') return 'home';
+    const htmlMatch = cleaned.match(/^\/([a-z0-9-]+)\.html$/);
+    if (htmlMatch) return htmlMatch[1];
+    const segmentMatch = cleaned.match(/^\/([a-z0-9-]+)$/);
+    if (segmentMatch) return segmentMatch[1];
+    return '';
+  }
+
+  const pageKey = currentPageKey();
 
   function injectSharedLayout() {
     const header = document.querySelector('header');
@@ -8,8 +33,8 @@
     if (header) {
       header.innerHTML = ''
         + '<div class="header-inner">'
-        + '  <a href="index.html" class="brand">'
-        + '    <img src="assets/logo.png" class="brand-logo" alt="Labor Ready NY Workforce Solutions logo" />'
+        + '  <a href="/" class="brand">'
+        + '    <img src="/assets/logo.png" class="brand-logo" alt="Labor Ready NY Workforce Solutions logo" />'
         + '    <div class="brand-text">'
         + '      <div class="brand-name">Labor Ready <span>NY</span></div>'
         + '      <div class="brand-sub">Workforce Solutions</div>'
@@ -19,16 +44,16 @@
         + '    <span></span><span></span><span></span>'
         + '  </button>'
         + '  <nav id="mainNav" aria-label="Main navigation">'
-        + '    <a href="index.html">Home</a>'
-        + '    <a href="services.html">Services</a>'
-        + '    <a href="industries.html">Industries</a>'
-        + '    <a href="clients.html">Clients</a>'
-        + '    <a href="about.html">About</a>'
-        + '    <a href="portal.html">Portal</a>'
+        + '    <a href="/">Home</a>'
+        + '    <a href="/services">Services</a>'
+        + '    <a href="/industries">Industries</a>'
+        + '    <a href="/clients">Clients</a>'
+        + '    <a href="/about">About</a>'
+        + '    <a href="/portal">Portal</a>'
         + '    <a href="https://payroll.laborreadyny.xyz" target="_blank" rel="noopener noreferrer">Payroll</a>'
-        + '    <a href="contact.html">Contact</a>'
+        + '    <a href="/contact">Contact</a>'
         + '  </nav>'
-        + '  <a href="dispatch.html" class="btn-cta btn-sweep">Get Workers Now</a>'
+        + '  <a href="/dispatch" class="btn-cta btn-sweep">Get Workers Now</a>'
         + '</div>';
     }
 
@@ -36,26 +61,26 @@
       footer.innerHTML = ''
         + '<div class="footer-inner">'
         + '  <div>'
-        + '    <img src="assets/logo.png" class="footer-logo" alt="Labor Ready NY Workforce Solutions logo" />'
+        + '    <img src="/assets/logo.png" class="footer-logo" alt="Labor Ready NY Workforce Solutions logo" />'
         + '    <h3 class="footer-title">Labor Ready NY Inc</h3>'
         + '    <p>Construction staffing, dispatch, payroll assistance, and workforce support for NYC contractors. Building New York, Ready for Every Job.</p>'
         + '  </div>'
         + '  <div>'
         + '    <h4 class="footer-title">Quick Links</h4>'
         + '    <ul class="footer-links">'
-        + '      <li><a href="index.html">Home</a></li>'
-        + '      <li><a href="services.html">Services</a></li>'
-        + '      <li><a href="about.html">About</a></li>'
-        + '      <li><a href="portal.html">Portal</a></li>'
-        + '      <li><a href="contact.html">Contact</a></li>'
+        + '      <li><a href="/">Home</a></li>'
+        + '      <li><a href="/services">Services</a></li>'
+        + '      <li><a href="/about">About</a></li>'
+        + '      <li><a href="/portal">Portal</a></li>'
+        + '      <li><a href="/contact">Contact</a></li>'
         + '    </ul>'
         + '  </div>'
         + '  <div>'
         + '    <h4 class="footer-title">Services</h4>'
         + '    <ul class="footer-links">'
-        + '      <li><a href="onboarding.html">Client Onboarding</a></li>'
-        + '      <li><a href="dispatch.html">Dispatch Request</a></li>'
-        + '      <li><a href="apply.html">Worker Application</a></li>'
+        + '      <li><a href="/onboarding">Client Onboarding</a></li>'
+        + '      <li><a href="/dispatch">Dispatch Request</a></li>'
+        + '      <li><a href="/apply">Worker Application</a></li>'
         + '      <li><a href="https://payroll.laborreadyny.xyz" target="_blank" rel="noopener noreferrer">Payroll Portal</a></li>'
         + '    </ul>'
         + '  </div>'
@@ -70,7 +95,7 @@
         + '  </div>'
         + '</div>'
         + '<div class="footer-bottom">'
-        + '  <div class="footer-bottom-inner">© 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence</div>'
+        + '  <div class="footer-bottom-inner">Â© 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence</div>'
         + '</div>';
     }
   }
@@ -97,13 +122,9 @@
 
   // Active Link Detection
   document.querySelectorAll('nav a').forEach(function (link) {
-    const href = (link.getAttribute('href') || '').toLowerCase();
-    const pageWithHash = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase() + (window.location.hash || '').toLowerCase();
-    if (
-      href === page
-      || (page === '' && href === 'index.html')
-      || (href === pageWithHash)
-    ) {
+    const href = (link.getAttribute('href') || '').toLowerCase().replace(/\/+$/, '') || '/';
+    const currentRoute = routes[pageKey] || '';
+    if ((href === '/' && pageKey === 'home') || href === currentRoute) {
       link.classList.add('active');
     }
   });
@@ -117,21 +138,21 @@
   }
 
   // Keep utility actions present on all pages
-  if (!document.querySelector('.float-call') && page !== 'payroll.html') {
+  if (!document.querySelector('.float-call') && pageKey !== 'payroll') {
     const callBtn = document.createElement('a');
     callBtn.href = 'tel:7182629606';
     callBtn.className = 'float-call';
     callBtn.setAttribute('aria-label', 'Call Labor Ready NY Inc');
-    callBtn.textContent = '📞';
+    callBtn.textContent = 'ðŸ“ž';
     document.body.appendChild(callBtn);
   }
-  if (!document.getElementById('backToTop') && page !== 'payroll.html') {
+  if (!document.getElementById('backToTop') && pageKey !== 'payroll') {
     const topBtn = document.createElement('button');
     topBtn.type = 'button';
     topBtn.id = 'backToTop';
     topBtn.className = 'back-to-top';
     topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.textContent = '↑';
+    topBtn.textContent = 'â†‘';
     document.body.appendChild(topBtn);
   }
 
@@ -190,11 +211,11 @@
   }
 
   // Site-wide ambient construction animation
-  if (!document.querySelector('.ambient-construction') && page !== 'payroll.html') {
+  if (!document.querySelector('.ambient-construction') && pageKey !== 'payroll') {
     const ambient = document.createElement('div');
     ambient.className = 'ambient-construction';
     ambient.setAttribute('aria-hidden', 'true');
-    const icons = ['🏗️', '⚙️', '🔨', '⚒️', '🦺', '📐', '🚧', '🧱', '🔩', '🏢'];
+    const icons = ['ðŸ—ï¸', 'âš™ï¸', 'ðŸ”¨', 'âš’ï¸', 'ðŸ¦º', 'ðŸ“', 'ðŸš§', 'ðŸ§±', 'ðŸ”©', 'ðŸ¢'];
     for (let i = 0; i < 52; i += 1) {
       const token = document.createElement('span');
       token.className = 'ambient-icon';
@@ -364,7 +385,7 @@
       const error = form.querySelector('.form-error-msg');
       const originalLabel = btn ? btn.textContent : '';
       if (btn) {
-        btn.textContent = 'Sending…';
+        btn.textContent = 'Sendingâ€¦';
         btn.disabled = true;
       }
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
