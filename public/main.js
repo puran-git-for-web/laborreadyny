@@ -53,7 +53,6 @@
         + '    <a href="https://payroll.laborreadyny.xyz" target="_blank" rel="noopener noreferrer">Payroll</a>'
         + '    <a href="/contact">Contact</a>'
         + '  </nav>'
-        + '  <a href="/dispatch" class="btn-cta btn-sweep">Get Workers Now</a>'
         + '</div>';
     }
 
