@@ -21,6 +21,7 @@
 
   const STATUS_OPTIONS = ["new", "in_review", "resolved", "archived"];
   const ACCESS_TOKEN_KEY = "lrny_admin_access_token";
+  const TEMP_ADMIN_SESSION_KEY = "lrny_admin_temp_session";
 
   function showError(message) {
     if (!loginError) return;
@@ -50,6 +51,16 @@
       apikey: anonKey,
       Authorization: "Bearer " + token
     };
+  }
+
+  function hasSupabaseRuntime() {
+    return Boolean(baseUrl && anonKey && anonKey !== "YOUR_SUPABASE_ANON_KEY");
+  }
+
+  function renderTemporaryPanel() {
+    adminPanel.style.display = "block";
+    loginForm.style.display = "none";
+    requestsEl.innerHTML = "<article class=\"portal-card\"><h3 class=\"portal-title\">Temporary Admin Mode Active</h3><p>Admin login is active.</p><p>Current intake mode is email delivery. New requests are delivered to payroll@laborreadyny.xyz until Supabase anon key is configured.</p></article>";
   }
 
   function escapeHtml(input) {
@@ -124,8 +135,11 @@
   }
 
   function loadPanel() {
-    if (!baseUrl || !anonKey || anonKey === "YOUR_SUPABASE_ANON_KEY") {
-      showError("Admin dashboard is temporarily disabled until Supabase anon key is configured in /intake-config.js.");
+    if (!hasSupabaseRuntime()) {
+      if (window.sessionStorage.getItem(TEMP_ADMIN_SESSION_KEY) === "1") {
+        clearError();
+        renderTemporaryPanel();
+      }
       return;
     }
     const token = getAccessToken();
@@ -149,14 +163,20 @@
     event.preventDefault();
     clearError();
 
-    if (!baseUrl || !anonKey) {
-      showError("Supabase intake config is missing. Update /intake-config.js first.");
-      return;
-    }
-
     const formData = new FormData(loginForm);
     const email = String(formData.get("email") || "").trim();
     const password = String(formData.get("password") || "").trim();
+
+    if (!hasSupabaseRuntime()) {
+      if (email.toLowerCase() === String(defaultAdminEmail || "admin@laborreadyny.xyz").toLowerCase() && password.length >= 8) {
+        window.sessionStorage.setItem(TEMP_ADMIN_SESSION_KEY, "1");
+        clearError();
+        renderTemporaryPanel();
+      } else {
+        showError("Use admin email and an 8+ character password to enter temporary admin mode.");
+      }
+      return;
+    }
 
     fetch(baseUrl + "/auth/v1/token?grant_type=password", {
       method: "POST",
@@ -208,6 +228,7 @@
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       setAccessToken("");
+      window.sessionStorage.removeItem(TEMP_ADMIN_SESSION_KEY);
       adminPanel.style.display = "none";
       loginForm.style.display = "block";
       clearError();
