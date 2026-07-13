@@ -44,12 +44,15 @@
     "",
     "alter table public.intake_requests enable row level security;",
     "",
+    "drop policy if exists \"anon can insert intake\" on public.intake_requests;",
     "create policy \"anon can insert intake\" on public.intake_requests",
     "for insert to anon with check (true);",
     "",
+    "drop policy if exists \"authenticated can read intake\" on public.intake_requests;",
     "create policy \"authenticated can read intake\" on public.intake_requests",
     "for select to authenticated using (true);",
     "",
+    "drop policy if exists \"authenticated can update intake\" on public.intake_requests;",
     "create policy \"authenticated can update intake\" on public.intake_requests",
     "for update to authenticated using (true) with check (true);"
   ].join("\n");
@@ -108,6 +111,22 @@
     requestsEl.innerHTML = "<article class=\"portal-card\"><h3 class=\"portal-title\">Temporary Admin Mode Active</h3><p>Admin login is active.</p><p>Current intake mode is email delivery. New requests are delivered to payroll@laborreadyny.xyz until Supabase anon key is configured.</p></article>";
   }
 
+  function copyBootstrapSql() {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+      return navigator.clipboard.writeText(BOOTSTRAP_SQL);
+    }
+    const helper = document.createElement("textarea");
+    helper.value = BOOTSTRAP_SQL;
+    helper.setAttribute("readonly", "readonly");
+    helper.style.position = "fixed";
+    helper.style.opacity = "0";
+    document.body.appendChild(helper);
+    helper.select();
+    document.execCommand("copy");
+    document.body.removeChild(helper);
+    return Promise.resolve();
+  }
+
   function escapeHtml(input) {
     return String(input)
       .replace(/&/g, "&amp;")
@@ -124,8 +143,16 @@
         + "<article class=\"portal-card\">"
         + "<h3 class=\"portal-title\">Backend setup required</h3>"
         + "<p>Login worked, but the `intake_requests` table does not exist yet in Supabase.</p>"
-        + "<p>Run this SQL in Supabase SQL Editor to complete backend infrastructure:</p>"
-        + "<pre>" + escapeHtml(BOOTSTRAP_SQL) + "</pre>"
+        + "<p>Run setup SQL once, then click retry to load your queue.</p>"
+        + "<div style=\"display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;\">"
+        + "<button type=\"button\" id=\"adminCopySqlBtn\" class=\"btn-secondary\">Copy Setup SQL</button>"
+        + "<button type=\"button\" id=\"adminRetryLoadBtn\" class=\"btn-secondary\">Retry Queue Load</button>"
+        + "</div>"
+        + "<details style=\"margin-top:12px;\"><summary>View setup SQL</summary><pre>" + escapeHtml(BOOTSTRAP_SQL) + "</pre></details>"
+        + "</article>"
+        + "<article class=\"portal-card\">"
+        + "<h3 class=\"portal-title\">Admin is active</h3>"
+        + "<p>You are signed in. Queue data will appear here after setup is complete.</p>"
         + "</article>";
       return;
     }
@@ -233,6 +260,25 @@
       });
   }
 
+  function retryQueueLoad() {
+    const token = getAccessToken();
+    if (!token) {
+      showError("Please sign in again.");
+      return;
+    }
+    clearError();
+    fetchRequests(token)
+      .then(function (rows) {
+        renderRequests(rows);
+        if (!intakeTableMissing) {
+          showSuccess("Queue loaded.");
+        }
+      })
+      .catch(function (error) {
+        showError(error.message || "Could not load queue.");
+      });
+  }
+
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
     clearError();
@@ -328,6 +374,26 @@
     patchStatus(token, id, status).catch(function () {
       showError("Status update failed. Please retry after backend setup is complete.");
     });
+  });
+
+  requestsEl.addEventListener("click", function (event) {
+    const target = event.target;
+    if (!target || !(target instanceof HTMLElement)) {
+      return;
+    }
+    if (target.id === "adminCopySqlBtn") {
+      copyBootstrapSql()
+        .then(function () {
+          showSuccess("Setup SQL copied. Paste it in Supabase SQL Editor and run it.");
+        })
+        .catch(function () {
+          showError("Could not copy SQL. Open 'View setup SQL' and copy manually.");
+        });
+      return;
+    }
+    if (target.id === "adminRetryLoadBtn") {
+      retryQueueLoad();
+    }
   });
 
   if (logoutBtn) {

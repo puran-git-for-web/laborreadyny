@@ -108,7 +108,7 @@
     const backdrop = document.createElement('div');
     backdrop.className = 'site-backdrop';
     backdrop.setAttribute('aria-hidden', 'true');
-    backdrop.innerHTML = '<div class="site-backdrop-wave"></div><div class="site-backdrop-vector"></div>';
+    backdrop.innerHTML = '<div class="site-backdrop-wave"></div><div class="site-backdrop-vector"></div><div class="site-backdrop-grid"></div>';
     document.body.insertBefore(backdrop, document.body.firstChild);
   }
 
