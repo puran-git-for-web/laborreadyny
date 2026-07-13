@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
 
-import { getDbClient, isDatabaseEnabled } from "@/lib/db";
-
-type IntakeBody = {
-  formType: string;
-  sourcePage: string;
-  submittedAt: string | null;
-  email: string | null;
-  phone: string | null;
-  payload: Record<string, string>;
-};
+import { isAuthenticatedRequest } from "@/lib/admin-session";
+import {
+  insertIntakeRequest,
+  IntakeBody,
+  listIntakeRequests,
+} from "@/lib/intake-store";
+import { isDatabaseEnabled } from "@/lib/db";
 
 function dbDisabledResponse() {
   return NextResponse.json(
@@ -68,39 +65,19 @@ export async function GET(request: Request) {
 
   const expectedToken = process.env.INTAKE_ADMIN_TOKEN?.trim();
   const providedToken = getAdminToken(request);
+  const cookieAuthenticated = await isAuthenticatedRequest();
 
-  if (!expectedToken || providedToken !== expectedToken) {
+  if (!cookieAuthenticated && (!expectedToken || providedToken !== expectedToken)) {
     return NextResponse.json(
       { ok: false, message: "Unauthorized. Valid admin token required." },
       { status: 401 }
     );
   }
 
-  const sql = getDbClient();
-  if (!sql) {
+  const result = await listIntakeRequests();
+  if (!result) {
     return dbDisabledResponse();
   }
-
-  await sql`
-    CREATE TABLE IF NOT EXISTS intake_requests (
-      id BIGSERIAL PRIMARY KEY,
-      form_type TEXT NOT NULL,
-      source_page TEXT,
-      contact_email TEXT,
-      contact_phone TEXT,
-      payload JSONB NOT NULL,
-      submitted_at TIMESTAMPTZ,
-      status TEXT NOT NULL DEFAULT 'new',
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-
-  const result = await sql`
-    SELECT id, form_type, source_page, contact_email, contact_phone, payload, submitted_at, status, created_at
-    FROM intake_requests
-    ORDER BY created_at DESC
-    LIMIT 200
-  `;
 
   return NextResponse.json({ ok: true, requests: result });
 }
@@ -111,49 +88,10 @@ export async function POST(request: Request) {
   }
 
   const intake = await parseIntakeBody(request);
-
-  const sql = getDbClient();
-  if (!sql) {
+  const created = await insertIntakeRequest(intake);
+  if (!created) {
     return dbDisabledResponse();
   }
-
-  await sql`
-    CREATE TABLE IF NOT EXISTS intake_requests (
-      id BIGSERIAL PRIMARY KEY,
-      form_type TEXT NOT NULL,
-      source_page TEXT,
-      contact_email TEXT,
-      contact_phone TEXT,
-      payload JSONB NOT NULL,
-      submitted_at TIMESTAMPTZ,
-      status TEXT NOT NULL DEFAULT 'new',
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-
-  const submittedTimestamp =
-    intake.submittedAt && !Number.isNaN(Date.parse(intake.submittedAt))
-      ? intake.submittedAt
-      : null;
-
-  const [created] = await sql`
-    INSERT INTO intake_requests (
-      form_type,
-      source_page,
-      contact_email,
-      contact_phone,
-      payload,
-      submitted_at
-    ) VALUES (
-      ${intake.formType},
-      ${intake.sourcePage},
-      ${intake.email},
-      ${intake.phone},
-      ${JSON.stringify(intake.payload)}::jsonb,
-      ${submittedTimestamp}::timestamptz
-    )
-    RETURNING id, form_type, status, created_at
-  `;
 
   return NextResponse.json({ ok: true, request: created }, { status: 201 });
 }

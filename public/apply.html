@@ -17,9 +17,9 @@
   </section>
   <section class="section-inner">
     <div class="form-wrapper">
-      <form action="/api/intake" method="POST" data-formspree data-fallback-action="https://formspree.io/f/mgvevdok" novalidate>
+      <form action="/api/intake" method="POST" data-intake-form novalidate>
         <p class="required-note">* Required fields</p>
-        <p class="routing-note">Routing: attempts Neon/Postgres intake first (`/api/intake`), then automatically falls back to secure Formspree delivery if backend is unavailable.</p>
+        <p class="routing-note">Routing: this form sends directly to our secured intake system at <strong>/api/intake</strong> for admin review.</p>
         <input type="hidden" name="form_type" value="worker_application" />
         <div class="form-row">
           <div class="form-group"><label for="first_name">First Name *</label><input id="first_name" name="first_name" required /></div>

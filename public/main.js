@@ -73,6 +73,7 @@
         + '      <li><a href="/about">About</a></li>'
         + '      <li><a href="/portal">Portal</a></li>'
         + '      <li><a href="/contact">Contact</a></li>'
+        + '      <li><a href="/admin/login">Admin</a></li>'
         + '    </ul>'
         + '  </div>'
         + '  <div>'
@@ -336,7 +337,7 @@
   });
 
   // Form Handling
-  document.querySelectorAll('form[data-formspree]').forEach(function (form) {
+  document.querySelectorAll('form[data-intake-form]').forEach(function (form) {
     const heading = document.querySelector('.page-hero h1');
     const formName = heading ? heading.textContent.trim() : 'Website Form';
     if (!form.querySelector('input[name="_subject"]')) {
@@ -375,7 +376,6 @@
         submittedAt.value = new Date().toISOString();
       }
       const primaryAction = form.getAttribute('action') || '';
-      const fallbackAction = form.dataset.fallbackAction || '';
       function postTo(actionUrl) {
         return fetch(actionUrl, {
           method: 'POST',
@@ -385,18 +385,10 @@
       }
       postTo(primaryAction)
         .then(function (response) {
-          if (response.ok) {
-            return response;
+          if (!response.ok) {
+            throw new Error('Send failed');
           }
-          if (fallbackAction && fallbackAction !== primaryAction) {
-            return postTo(fallbackAction).then(function (fallbackResponse) {
-              if (fallbackResponse.ok) {
-                return fallbackResponse;
-              }
-              throw new Error('Fallback send failed');
-            });
-          }
-          throw new Error('Send failed');
+          return response;
         })
         .then(function () {
           if (success) {
