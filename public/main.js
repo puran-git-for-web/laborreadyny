@@ -472,7 +472,9 @@
       }
       const cfg = getIntakeConfig();
       const submitRequest = cfg && cfg.hasSupabase
-        ? submitToSupabaseIntake(form)
+        ? submitToSupabaseIntake(form).catch(function () {
+            return submitToEmailIntake(form);
+          })
         : submitToEmailIntake(form);
       submitRequest
         .then(function () {

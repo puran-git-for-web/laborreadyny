@@ -121,6 +121,8 @@ using (true)
 with check (true);
 ```
 
+The same SQL is also available in `supabase/intake_bootstrap.sql`.
+
 Temporary fallback currently enabled:
 - If Supabase anon key is still placeholder, public forms are sent via email endpoint (`formsubmit`) so requests are not lost.
 - Admin dashboard (`/admin`) shows a setup message until real Supabase key is configured.
