@@ -95,7 +95,9 @@
         + '  </div>'
         + '</div>'
         + '<div class="footer-bottom">'
-        + '  <div class="footer-bottom-inner">(c) 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence</div>'
+        + '  <div class="footer-bottom-inner">(c) 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence'
+        + '    <div class="footer-credit">Design and development by <a href="https://patsldeveloper.com" target="_blank" rel="noopener noreferrer">PATSL Developer LLC</a></div>'
+        + '  </div>'
         + '</div>';
     }
   }
@@ -208,26 +210,6 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(function (counter) { counterObserver.observe(counter); });
-  }
-
-  // Site-wide ambient construction animation
-  if (!document.querySelector('.ambient-construction') && pageKey !== 'payroll') {
-    const ambient = document.createElement('div');
-    ambient.className = 'ambient-construction';
-    ambient.setAttribute('aria-hidden', 'true');
-    const icons = ['NY', 'OPS', 'SITE', 'CREW', 'SAFE', 'BUILD', 'TRADE', 'PLAN'];
-    for (let i = 0; i < 36; i += 1) {
-      const token = document.createElement('span');
-      token.className = 'ambient-icon';
-      token.textContent = icons[i % icons.length];
-      token.style.left = Math.random() * 100 + '%';
-      token.style.top = Math.random() * 100 + '%';
-      token.style.animationDelay = (Math.random() * 8).toFixed(2) + 's';
-      token.style.animationDuration = (6 + Math.random() * 14).toFixed(2) + 's';
-      token.style.fontSize = (10 + Math.random() * 10).toFixed(0) + 'px';
-      ambient.appendChild(token);
-    }
-    document.body.appendChild(ambient);
   }
 
   // Spread hero construction elements instead of stacking
