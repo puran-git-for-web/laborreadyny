@@ -87,7 +87,7 @@ header.scrolled {
 }
 
 body {
-  padding-top: 330px;
+  padding-top: 112px;
 }
 
 .header-inner {
@@ -111,8 +111,8 @@ body {
 }
 
 .brand-logo {
-  height: 312px;
-  width: 312px;
+  height: 128px;
+  width: 128px;
   object-fit: contain;
   filter: drop-shadow(0 0 24px rgba(255, 165, 0, 0.55));
 }
@@ -1141,8 +1141,8 @@ footer {
 }
 
 .footer-logo {
-  width: 312px;
-  height: 312px;
+  width: 124px;
+  height: 124px;
   object-fit: contain;
   margin-bottom: 0.75rem;
   filter: drop-shadow(0 0 16px rgba(255, 165, 0, 0.35));
@@ -1155,7 +1155,7 @@ footer {
   color: white;
   padding: 5rem 0 3.5rem;
   border-bottom: 2px solid rgba(255, 165, 0, 0.2);
-  margin-top: 330px;
+  margin-top: 112px;
   position: relative;
   overflow: hidden;
 }
@@ -1517,11 +1517,11 @@ textarea {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 290px;
+    padding-top: 96px;
   }
 
   .page-hero {
-    margin-top: 290px;
+    margin-top: 96px;
   }
   
   header {
@@ -1544,8 +1544,8 @@ textarea {
   }
   
   .brand-logo {
-    height: 272px;
-    width: 272px;
+    height: 92px;
+    width: 92px;
     box-shadow: none;
   }
 
@@ -1737,11 +1737,11 @@ textarea {
 
 @media (max-width: 480px) {
   body {
-    padding-top: 230px;
+    padding-top: 84px;
   }
 
   .page-hero {
-    margin-top: 230px;
+    margin-top: 84px;
   }
 
   .header-inner {
@@ -1751,8 +1751,8 @@ textarea {
   }
 
   .brand-logo {
-    height: 208px;
-    width: 208px;
+    height: 74px;
+    width: 74px;
   }
 
   .brand-name {

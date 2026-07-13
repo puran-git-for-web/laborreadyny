@@ -6,9 +6,14 @@
 
   const loginForm = document.getElementById("adminLoginForm");
   const loginError = document.getElementById("adminLoginError");
+  const loginSuccess = document.getElementById("adminLoginSuccess");
   const adminPanel = document.getElementById("adminPanel");
   const requestsEl = document.getElementById("adminRequests");
   const logoutBtn = document.getElementById("adminLogoutBtn");
+  const resetPasswordBtn = document.getElementById("adminResetPasswordBtn");
+  const changePasswordForm = document.getElementById("adminChangePasswordForm");
+  const passwordSuccess = document.getElementById("adminPasswordSuccess");
+  const passwordError = document.getElementById("adminPasswordError");
 
   if (!loginForm || !requestsEl || !adminPanel) {
     return;
@@ -27,11 +32,25 @@
     if (!loginError) return;
     loginError.textContent = message;
     loginError.style.display = "block";
+    if (loginSuccess) {
+      loginSuccess.style.display = "none";
+    }
   }
 
   function clearError() {
     if (!loginError) return;
     loginError.style.display = "none";
+  }
+
+  function showSuccess(message) {
+    if (!loginSuccess) return;
+    loginSuccess.textContent = message;
+    loginSuccess.style.display = "block";
+  }
+
+  function clearSuccess() {
+    if (!loginSuccess) return;
+    loginSuccess.style.display = "none";
   }
 
   function getAccessToken() {
@@ -162,6 +181,7 @@
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
     clearError();
+    clearSuccess();
 
     const formData = new FormData(loginForm);
     const email = String(formData.get("email") || "").trim();
@@ -203,11 +223,41 @@
         loginForm.style.display = "none";
         adminPanel.style.display = "block";
         renderRequests(rows);
+        showSuccess("Login successful.");
       })
       .catch(function (error) {
         showError(error.message || "Login failed.");
       });
   });
+
+  if (resetPasswordBtn) {
+    resetPasswordBtn.addEventListener("click", function () {
+      clearError();
+      clearSuccess();
+      const email = String((emailInput && emailInput.value) || defaultAdminEmail || "").trim();
+      if (!email) {
+        showError("Enter your admin email first.");
+        return;
+      }
+      fetch(baseUrl + "/auth/v1/recover", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: anonKey
+        },
+        body: JSON.stringify({ email: email })
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Could not send reset email.");
+          }
+          showSuccess("Password reset email sent.");
+        })
+        .catch(function (error) {
+          showError(error.message || "Could not send reset email.");
+        });
+    });
+  }
 
   requestsEl.addEventListener("change", function (event) {
     const target = event.target;
@@ -232,6 +282,59 @@
       adminPanel.style.display = "none";
       loginForm.style.display = "block";
       clearError();
+      clearSuccess();
+    });
+  }
+
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (passwordSuccess) passwordSuccess.style.display = "none";
+      if (passwordError) passwordError.style.display = "none";
+
+      const token = getAccessToken();
+      const formData = new FormData(changePasswordForm);
+      const nextPassword = String(formData.get("new_password") || "").trim();
+      if (!token) {
+        if (passwordError) {
+          passwordError.textContent = "Please sign in first.";
+          passwordError.style.display = "block";
+        }
+        return;
+      }
+      if (nextPassword.length < 8) {
+        if (passwordError) {
+          passwordError.textContent = "Password must be at least 8 characters.";
+          passwordError.style.display = "block";
+        }
+        return;
+      }
+
+      fetch(baseUrl + "/auth/v1/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: anonKey,
+          Authorization: "Bearer " + token
+        },
+        body: JSON.stringify({ password: nextPassword })
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Could not update password.");
+          }
+          changePasswordForm.reset();
+          if (passwordSuccess) {
+            passwordSuccess.textContent = "Password updated successfully.";
+            passwordSuccess.style.display = "block";
+          }
+        })
+        .catch(function (error) {
+          if (passwordError) {
+            passwordError.textContent = error.message || "Could not update password.";
+            passwordError.style.display = "block";
+          }
+        });
     });
   }
 
