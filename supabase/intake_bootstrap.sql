@@ -12,11 +12,23 @@ create table if not exists public.intake_requests (
 
 alter table public.intake_requests enable row level security;
 
+grant usage on schema public to anon, authenticated;
+grant insert on table public.intake_requests to anon, authenticated;
+grant select, update on table public.intake_requests to authenticated;
+grant usage, select on sequence public.intake_requests_id_seq to anon, authenticated;
+
 drop policy if exists "anon can insert intake" on public.intake_requests;
 create policy "anon can insert intake"
 on public.intake_requests
 for insert
 to anon
+with check (true);
+
+drop policy if exists "authenticated can insert intake" on public.intake_requests;
+create policy "authenticated can insert intake"
+on public.intake_requests
+for insert
+to authenticated
 with check (true);
 
 drop policy if exists "authenticated can read intake" on public.intake_requests;
