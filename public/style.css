@@ -307,11 +307,16 @@ nav a:hover {
 }
 
 .hero-inner {
-  max-width: 1200px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 2.2rem 2rem;
   position: relative;
   z-index: 2;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 191, 90, 0.25);
+  background: linear-gradient(130deg, rgba(8, 24, 46, 0.44) 0%, rgba(16, 40, 70, 0.28) 100%);
+  box-shadow: 0 20px 48px rgba(5, 12, 25, 0.48);
+  backdrop-filter: blur(10px);
 }
 
 .hero-tag {
@@ -410,6 +415,9 @@ nav a:hover {
 
 .section-header {
   margin-bottom: 4rem;
+  display: grid;
+  gap: 0.4rem;
+  max-width: 980px;
 }
 
 .section-alt {
@@ -439,6 +447,8 @@ nav a:hover {
   color: white;
   font-weight: 900;
   line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
 }
 
 .section-sub {
@@ -457,15 +467,17 @@ nav a:hover {
 
 .home-services-cta {
   margin-top: 2rem;
-  padding: 1.1rem 1.25rem;
-  border: 1px solid rgba(255, 165, 0, 0.24);
-  border-radius: 12px;
-  background: rgba(10, 25, 48, 0.28);
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(255, 191, 90, 0.36);
+  border-radius: 16px;
+  background: linear-gradient(115deg, rgba(12, 31, 58, 0.56), rgba(23, 54, 92, 0.34));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(12px);
 }
 
 .home-services-cta p {
@@ -578,6 +590,11 @@ nav a:hover {
   letter-spacing: 0.05em;
 }
 
+.portal-title {
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
 .service-desc, .why-desc, .testimonial-quote, .portal-desc, .step-desc, .info-card p {
   color: rgba(255, 255, 255, 0.93);
   line-height: 1.8;
@@ -665,12 +682,15 @@ nav a:hover {
 .card-link {
   display: inline-block;
   margin-top: 0.7rem;
-  color: #ffbd47;
+  color: #ffd58a;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.83rem;
 }
 
 .card-link:hover {
-  color: #ffd27a;
+  color: #fff0c7;
   text-decoration: underline;
 }
 
@@ -870,7 +890,7 @@ nav a:hover {
 }
 
 .cred-list li::before {
-  content: '▸';
+  content: 'â–¸';
   position: absolute;
   left: 0;
   color: #ffa500;
@@ -1037,7 +1057,7 @@ footer {
 .page-hero {
   background:
     linear-gradient(135deg, rgba(12, 29, 54, 0.7) 0%, rgba(19, 45, 79, 0.64) 100%),
-    url("assets/banner.png") center center / cover no-repeat;
+    url("/assets/banner.png") center center / cover no-repeat;
   color: white;
   padding: 5rem 0 3.5rem;
   border-bottom: 2px solid rgba(255, 165, 0, 0.2);
@@ -1442,6 +1462,11 @@ textarea {
   .hero {
     padding: 6rem 0 4rem;
     min-height: auto;
+  }
+
+  .hero-inner {
+    padding: 1.2rem 1rem;
+    border-radius: 16px;
   }
 
   .construction-elements {

@@ -27,10 +27,26 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build pretty-url static artifact
+        shell: bash
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp -R public/. _site/
+          shopt -s nullglob
+          for page in _site/*.html; do
+            name="$(basename "$page" .html)"
+            if [[ "$name" == "index" ]]; then
+              continue
+            fi
+            mkdir -p "_site/$name"
+            cp "$page" "_site/$name/index.html"
+          done
+
       - name: Upload public artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
