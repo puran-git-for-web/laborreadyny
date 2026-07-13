@@ -890,7 +890,7 @@ nav a:hover {
 }
 
 .cred-list li::before {
-  content: 'â–¸';
+  content: '>';
   position: absolute;
   left: 0;
   color: #ffa500;
@@ -1210,9 +1210,11 @@ textarea {
 
 .ambient-icon {
   position: absolute;
-  color: rgba(255, 165, 0, 0.45);
-  text-shadow: 0 0 18px rgba(255, 165, 0, 0.62);
-  filter: saturate(1.1);
+  color: rgba(255, 179, 56, 0.28);
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.28);
+  filter: saturate(1);
+  font-weight: 700;
+  letter-spacing: 0.06em;
   animation: drift 12s ease-in-out infinite;
 }
 
