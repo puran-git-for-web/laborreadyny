@@ -17,9 +17,10 @@
   </section>
   <section class="section-inner">
     <div class="form-wrapper">
-      <form action="https://formspree.io/f/mgvevdok" method="POST" data-formspree novalidate>
+      <form action="/api/intake" method="POST" data-formspree data-fallback-action="https://formspree.io/f/mgvevdok" novalidate>
         <p class="required-note">* Required fields</p>
-        <p class="required-note">Onboarding submissions are routed to our Formspree workflow inbox for Labor Ready NY review.</p>
+        <p class="routing-note">Routing: attempts Neon/Postgres intake first (`/api/intake`), then automatically falls back to secure Formspree delivery if backend is unavailable.</p>
+        <input type="hidden" name="form_type" value="client_onboarding" />
         <div class="form-row">
           <div class="form-group"><label for="company">Company Name *</label><input id="company" name="company" required /></div>
           <div class="form-group"><label for="business_type">Business Type *</label><input id="business_type" name="business_type" required /></div>
