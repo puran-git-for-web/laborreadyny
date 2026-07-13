@@ -338,15 +338,25 @@
 
   function getIntakeConfig() {
     const cfg = window.LRNY_INTAKE_CONFIG || null;
-    if (!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) {
+    if (!cfg) {
       return null;
     }
-    return cfg;
+    const hasSupabase =
+      cfg.supabaseUrl &&
+      cfg.supabaseAnonKey &&
+      cfg.supabaseUrl.indexOf('YOUR-PROJECT-REF') === -1 &&
+      cfg.supabaseAnonKey.indexOf('YOUR_SUPABASE_ANON_KEY') === -1;
+    return {
+      hasSupabase: Boolean(hasSupabase),
+      supabaseUrl: cfg.supabaseUrl || '',
+      supabaseAnonKey: cfg.supabaseAnonKey || '',
+      emailEndpoint: cfg.emailEndpoint || 'https://formsubmit.co/ajax/payroll@laborreadyny.xyz'
+    };
   }
 
   function submitToSupabaseIntake(form) {
     const cfg = getIntakeConfig();
-    if (!cfg) {
+    if (!cfg || !cfg.hasSupabase) {
       return Promise.reject(new Error('Supabase intake is not configured'));
     }
 
@@ -381,6 +391,33 @@
     }).then(function (response) {
       if (!response.ok) {
         throw new Error('Supabase intake send failed');
+      }
+      return response;
+    });
+  }
+
+  function submitToEmailIntake(form) {
+    const cfg = getIntakeConfig();
+    const formData = new FormData(form);
+    if (!formData.get('_captcha')) {
+      formData.append('_captcha', 'false');
+    }
+    if (!formData.get('_template')) {
+      formData.append('_template', 'table');
+    }
+    if (!formData.get('_replyto') && formData.get('email')) {
+      formData.append('_replyto', String(formData.get('email')));
+    }
+
+    return fetch((cfg && cfg.emailEndpoint) || 'https://formsubmit.co/ajax/payroll@laborreadyny.xyz', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('Email intake send failed');
       }
       return response;
     });
@@ -425,8 +462,11 @@
       if (submittedAt) {
         submittedAt.value = new Date().toISOString();
       }
-      submitToSupabaseIntake(form)
-      submitToSupabaseIntake(form)
+      const cfg = getIntakeConfig();
+      const submitRequest = cfg && cfg.hasSupabase
+        ? submitToSupabaseIntake(form)
+        : submitToEmailIntake(form);
+      submitRequest
         .then(function () {
           if (success) {
             success.style.display = 'block';

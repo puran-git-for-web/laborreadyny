@@ -124,6 +124,10 @@
   }
 
   function loadPanel() {
+    if (!baseUrl || !anonKey || anonKey === "YOUR_SUPABASE_ANON_KEY") {
+      showError("Admin dashboard is temporarily disabled until Supabase anon key is configured in /intake-config.js.");
+      return;
+    }
     const token = getAccessToken();
     if (!token) {
       return;
