@@ -17,9 +17,10 @@
   </section>
   <section class="section-inner">
     <div class="form-wrapper">
-      <form action="https://formspree.io/f/mgvevdok" method="POST" data-formspree novalidate>
+      <form action="/api/intake" method="POST" data-formspree data-fallback-action="https://formspree.io/f/mgvevdok" novalidate>
         <p class="required-note">* Required fields</p>
-        <p class="required-note">Dispatch requests are delivered to our Formspree-backed operations inbox for triage and follow-up.</p>
+        <p class="routing-note">Routing: attempts Neon/Postgres intake first (`/api/intake`), then automatically falls back to secure Formspree delivery if backend is unavailable.</p>
+        <input type="hidden" name="form_type" value="dispatch_request" />
         <div class="form-row">
           <div class="form-group"><label for="company">Company Name *</label><input id="company" name="company" required /></div>
           <div class="form-group"><label for="contact_name">Your Name *</label><input id="contact_name" name="contact_name" required /></div>

@@ -95,7 +95,7 @@
         + '  </div>'
         + '</div>'
         + '<div class="footer-bottom">'
-        + '  <div class="footer-bottom-inner">Â© 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence</div>'
+        + '  <div class="footer-bottom-inner">(c) 2026 Labor Ready NY Inc. All rights reserved. | Licensed & Insured in New York State | Built for Construction Excellence</div>'
         + '</div>';
     }
   }
@@ -388,15 +388,38 @@
         btn.textContent = 'Sending...';
         btn.disabled = true;
       }
-      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      const submittedAt = form.querySelector('input[name="submitted_at"]');
+      if (submittedAt) {
+        submittedAt.value = new Date().toISOString();
+      }
+      const primaryAction = form.getAttribute('action') || '';
+      const fallbackAction = form.dataset.fallbackAction || '';
+      function postTo(actionUrl) {
+        return fetch(actionUrl, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+      }
+      postTo(primaryAction)
         .then(function (response) {
           if (response.ok) {
-            if (success) {
-              success.style.display = 'block';
-              form.reset();
-            }
-          } else {
-            throw new Error('Send failed');
+            return response;
+          }
+          if (fallbackAction && fallbackAction !== primaryAction) {
+            return postTo(fallbackAction).then(function (fallbackResponse) {
+              if (fallbackResponse.ok) {
+                return fallbackResponse;
+              }
+              throw new Error('Fallback send failed');
+            });
+          }
+          throw new Error('Send failed');
+        })
+        .then(function () {
+          if (success) {
+            success.style.display = 'block';
+            form.reset();
           }
         })
         .catch(function () {

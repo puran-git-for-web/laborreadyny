@@ -40,12 +40,21 @@ The demo API route uses Neon at:
 
 - `GET /api/demo` (read)
 - `POST /api/demo` (write; body: `{ "message": "..." }`)
+- `POST /api/intake` (stores website form requests)
+- `GET /api/intake` (admin request listing; requires token)
 
 Required environment variable:
 
 - `DATABASE_URL` - Neon connection string
+- `INTAKE_ADMIN_TOKEN` - token required to read intake queue via `GET /api/intake`
 
 If `DATABASE_URL` is not configured, the route gracefully returns a feature-disabled response and the site remains fully functional.
+
+### Form routing behavior
+
+- Public forms currently submit to `/api/intake` first.
+- If backend is unavailable (for example on static GitHub Pages), client-side logic falls back to Formspree so requests are still delivered.
+- This ensures no submission loss while keeping Neon/Postgres intake ready when backend hosting is enabled.
 
 Create `.env.local`:
 

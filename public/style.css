@@ -17,6 +17,11 @@
   --glass-shadow: 0 14px 40px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.accordion-item.open {
+  border-color: rgba(255, 186, 70, 0.34);
+  box-shadow: 0 12px 32px rgba(7, 18, 38, 0.46);
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -651,7 +656,7 @@ nav a:hover {
 
 .services-media-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.6rem;
   margin-bottom: 2.5rem;
 }
@@ -664,6 +669,9 @@ nav a:hover {
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(14px);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-media-card img {
@@ -693,6 +701,7 @@ nav a:hover {
 
 .service-media-link {
   display: block;
+  height: 100%;
 }
 
 .clickable-card {
@@ -701,6 +710,9 @@ nav a:hover {
 
 .service-media-body {
   padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-media-title {
@@ -1229,6 +1241,16 @@ textarea {
 .required-note {
   color: rgba(255, 255, 255, 0.86);
   margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.routing-note {
+  margin: 0 0 1.1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 188, 70, 0.3);
+  border-radius: 12px;
+  background: rgba(8, 25, 47, 0.42);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
 }
 

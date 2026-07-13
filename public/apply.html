@@ -17,9 +17,10 @@
   </section>
   <section class="section-inner">
     <div class="form-wrapper">
-      <form action="https://formspree.io/f/mgvevdok" method="POST" data-formspree novalidate>
+      <form action="/api/intake" method="POST" data-formspree data-fallback-action="https://formspree.io/f/mgvevdok" novalidate>
         <p class="required-note">* Required fields</p>
-        <p class="required-note">Applications submit to our Formspree recruiting inbox for review by the Labor Ready NY team.</p>
+        <p class="routing-note">Routing: attempts Neon/Postgres intake first (`/api/intake`), then automatically falls back to secure Formspree delivery if backend is unavailable.</p>
+        <input type="hidden" name="form_type" value="worker_application" />
         <div class="form-row">
           <div class="form-group"><label for="first_name">First Name *</label><input id="first_name" name="first_name" required /></div>
           <div class="form-group"><label for="last_name">Last Name *</label><input id="last_name" name="last_name" required /></div>
