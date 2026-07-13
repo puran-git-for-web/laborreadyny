@@ -105,6 +105,14 @@
 
   injectSharedLayout();
 
+  if (!document.querySelector('.site-backdrop')) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'site-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    backdrop.innerHTML = '<div class="site-backdrop-wave"></div><div class="site-backdrop-vector"></div>';
+    document.body.insertBefore(backdrop, document.body.firstChild);
+  }
+
   // Navigation Toggle
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
