@@ -429,7 +429,9 @@
     activeRequestId = String(id);
     modalTitle.textContent = "Request #" + row.id + " - " + toHumanLabel(row.form_type || "general_request");
     modalBody.innerHTML = renderRequestDetailsHtml(row);
+    requestModal.removeAttribute("hidden");
     requestModal.hidden = false;
+    requestModal.classList.add("is-open");
     requestModal.style.display = "block";
     requestModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("admin-modal-open");
@@ -439,7 +441,9 @@
     if (!requestModal) {
       return;
     }
+    requestModal.classList.remove("is-open");
     requestModal.hidden = true;
+    requestModal.setAttribute("hidden", "hidden");
     requestModal.style.display = "none";
     requestModal.setAttribute("aria-hidden", "true");
     activeRequestId = null;

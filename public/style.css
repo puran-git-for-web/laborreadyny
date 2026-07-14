@@ -1489,13 +1489,18 @@ body.admin-modal-open {
 }
 
 .admin-modal[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .admin-modal {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 5000;
+}
+
+.admin-modal.is-open {
+  display: block;
 }
 
 .admin-modal-backdrop {
