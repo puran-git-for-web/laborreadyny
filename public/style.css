@@ -1495,7 +1495,7 @@ body.admin-modal-open {
 .admin-modal {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: 5000;
 }
 
 .admin-modal-backdrop {

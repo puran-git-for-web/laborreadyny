@@ -430,6 +430,8 @@
     modalTitle.textContent = "Request #" + row.id + " - " + toHumanLabel(row.form_type || "general_request");
     modalBody.innerHTML = renderRequestDetailsHtml(row);
     requestModal.hidden = false;
+    requestModal.style.display = "block";
+    requestModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("admin-modal-open");
   }
 
@@ -438,6 +440,8 @@
       return;
     }
     requestModal.hidden = true;
+    requestModal.style.display = "none";
+    requestModal.setAttribute("aria-hidden", "true");
     activeRequestId = null;
     document.body.classList.remove("admin-modal-open");
   }
@@ -482,29 +486,34 @@
   }
 
   function printDocument(title, subtitle, bodyHtml) {
-    const popup = window.open("", "_blank", "noopener,noreferrer,width=1100,height=900");
+    const popup = window.open("about:blank", "_blank", "width=1100,height=900");
     if (!popup) {
       showError("Popup blocked. Allow popups to print or save as PDF.");
       return;
     }
 
-    popup.document.write(
-      "<!doctype html><html><head><meta charset=\"utf-8\"/>"
+    const html = "<!doctype html><html><head><meta charset=\"utf-8\"/>"
       + "<title>" + escapeHtml(title) + "</title>"
       + "<style>"
-      + "body{font-family:Arial,sans-serif;margin:24px;color:#0b1c34;background:#f6f8fc;}h1{margin:0 0 4px;font-size:24px;}p.sub{margin:0 0 18px;color:#334155;}table{width:100%;border-collapse:collapse;margin-top:12px;background:#fff;}th,td{border:1px solid #d2d8e0;padding:8px;text-align:left;font-size:13px;vertical-align:top;}th{background:#eef4ff;}section{margin-bottom:18px;} .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .field{border:1px solid #d2d8e0;border-radius:8px;padding:8px;background:#fff;} .field strong{display:block;font-size:12px;text-transform:uppercase;color:#475569;margin-bottom:6px;} .field span{display:block;white-space:pre-wrap;word-break:break-word;} .summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;} .summary-card{background:#fff;border:1px solid #d2d8e0;border-radius:10px;padding:10px;} .summary-card p{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#475569;} .summary-card strong{font-size:20px;color:#0b1c34;}"
+      + "body{font-family:Arial,sans-serif;margin:24px;color:#0b1c34;background:#f6f8fc;}h1{margin:0 0 4px;font-size:24px;}h2{margin:12px 0 8px;font-size:18px;}p.sub{margin:0 0 18px;color:#334155;}table{width:100%;border-collapse:collapse;margin-top:12px;background:#fff;}th,td{border:1px solid #d2d8e0;padding:8px;text-align:left;font-size:13px;vertical-align:top;}th{background:#eef4ff;}section{margin-bottom:18px;} .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .field{border:1px solid #d2d8e0;border-radius:8px;padding:8px;background:#fff;} .field strong{display:block;font-size:12px;text-transform:uppercase;color:#475569;margin-bottom:6px;} .field span{display:block;white-space:pre-wrap;word-break:break-word;} .summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;} .summary-card{background:#fff;border:1px solid #d2d8e0;border-radius:10px;padding:10px;} .summary-card p{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#475569;} .summary-card strong{font-size:20px;color:#0b1c34;}"
       + "@media print{button{display:none;}body{margin:10mm;}}"
       + "</style></head><body>"
       + "<h1>" + escapeHtml(title) + "</h1>"
       + "<p class=\"sub\">" + escapeHtml(subtitle) + "</p>"
       + bodyHtml
-      + "</body></html>"
-    );
-    popup.document.close();
-    popup.focus();
-    window.setTimeout(function () {
-      popup.print();
-    }, 250);
+      + "</body></html>";
+
+    try {
+      popup.document.open();
+      popup.document.write(html);
+      popup.document.close();
+      popup.focus();
+      window.setTimeout(function () {
+        popup.print();
+      }, 350);
+    } catch (_error) {
+      showError("Could not render print window. Please retry.");
+    }
   }
 
   function printSingleRequest(id, pdfMode) {
