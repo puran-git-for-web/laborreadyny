@@ -84,6 +84,7 @@ If you want to keep `laborreadyny.xyz` on GitHub Pages, use the static Supabase 
 3. Ensure these pages are used:
    - Public forms: `/contact`, `/dispatch`, `/onboarding`, `/apply`
    - Admin manager: `/admin`
+   - Admin login fallback: use **Send Magic Login Link** on `/admin` if password login is not ready yet
 4. Create table/policies in Supabase SQL editor:
 
 ```sql
@@ -101,18 +102,33 @@ create table if not exists public.intake_requests (
 
 alter table public.intake_requests enable row level security;
 
+grant usage on schema public to anon, authenticated;
+grant insert on table public.intake_requests to anon, authenticated;
+grant select, update on table public.intake_requests to authenticated;
+grant usage, select on sequence public.intake_requests_id_seq to anon, authenticated;
+
+drop policy if exists "anon can insert intake" on public.intake_requests;
 create policy "anon can insert intake"
 on public.intake_requests
 for insert
 to anon
 with check (true);
 
+drop policy if exists "public can insert intake" on public.intake_requests;
+create policy "public can insert intake"
+on public.intake_requests
+for insert
+to public
+with check (true);
+
+drop policy if exists "authenticated can read intake" on public.intake_requests;
 create policy "authenticated can read intake"
 on public.intake_requests
 for select
 to authenticated
 using (true);
 
+drop policy if exists "authenticated can update intake" on public.intake_requests;
 create policy "authenticated can update intake"
 on public.intake_requests
 for update
@@ -126,6 +142,7 @@ The same SQL is also available in `supabase/intake_bootstrap.sql`.
 Temporary fallback currently enabled:
 - If Supabase anon key is still placeholder, public forms are sent via email endpoint (`formsubmit`) so requests are not lost.
 - Admin dashboard (`/admin`) shows a setup message until real Supabase key is configured.
+- Keys masked as `******` are treated as not configured; replace with your real Supabase publishable/anon key in `public/intake-config.js`.
 
 ## Migration checklist
 

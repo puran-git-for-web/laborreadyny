@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Intake Manager | Labor Ready NY Inc</title>
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/style.css?v=20260714-5" />
 </head>
 <body>
   <header></header>
@@ -32,6 +32,7 @@
         </div>
         <button type="submit" class="btn-submit">Sign In</button>
         <button id="adminResetPasswordBtn" type="button" class="btn-secondary" style="margin-top:10px;">Send Password Reset Email</button>
+        <button id="adminMagicLinkBtn" type="button" class="btn-secondary" style="margin-top:10px;">Send Magic Login Link</button>
         <div class="form-error-msg" id="adminLoginError">Login failed. Check email/password and Supabase config.</div>
         <div class="form-success" id="adminLoginSuccess">Success.</div>
       </form>
@@ -42,7 +43,76 @@
         <h2>Submission Queue</h2>
         <button id="adminLogoutBtn" class="btn-secondary" type="button">Logout</button>
       </div>
-      <p class="routing-note">All form requests are stored in Supabase and shown below.</p>
+      <p class="routing-note">All form requests are securely captured and shown below for review.</p>
+      <div class="admin-toolbar">
+        <button id="adminExportCsvBtn" class="btn-secondary" type="button">Export Queue CSV</button>
+        <button id="adminPrintQueueBtn" class="btn-secondary" type="button">Print Queue</button>
+      </div>
+      <section class="admin-queue-insights" id="adminQueueInsights" aria-live="polite"></section>
+      <section class="admin-filter-shell" aria-label="Queue filters">
+        <div class="admin-filter-grid">
+          <div class="form-group">
+            <label for="adminSearchInput">Search requests</label>
+            <input id="adminSearchInput" type="search" placeholder="Search email, phone, source, fields..." />
+          </div>
+          <div class="form-group">
+            <label for="adminStatusFilter">Filter by status</label>
+            <select id="adminStatusFilter">
+              <option value="all">All statuses</option>
+              <option value="new">New</option>
+              <option value="in_review">In review</option>
+              <option value="resolved">Resolved</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="adminTypeFilter">Filter by form type</label>
+            <select id="adminTypeFilter">
+              <option value="all">All form types</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-filter-actions">
+          <button id="adminClearFiltersBtn" class="btn-secondary" type="button">Clear Filters</button>
+          <p id="adminVisibleCount" class="admin-visible-count">Showing 0 of 0 requests</p>
+        </div>
+      </section>
+      <section class="admin-dashboard-grid">
+        <article class="portal-card admin-dashboard-card">
+          <h3 class="portal-title">Operations To-Do Board</h3>
+          <p>Create and track internal work items directly in this portal.</p>
+          <form id="adminTaskForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminTaskTitle">Task title *</label>
+                <input id="adminTaskTitle" name="title" type="text" maxlength="120" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminTaskOwner">Owner</label>
+                <input id="adminTaskOwner" name="owner" type="text" maxlength="80" />
+              </div>
+              <div class="form-group">
+                <label for="adminTaskDueDate">Due date</label>
+                <input id="adminTaskDueDate" name="due_date" type="date" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adminTaskNotes">Notes</label>
+                <textarea id="adminTaskNotes" name="notes" rows="3" maxlength="2000"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit">Add To-Do</button>
+          </form>
+          <div class="admin-task-toolbar">
+            <button id="adminRefreshTasksBtn" class="btn-secondary" type="button">Refresh Tasks</button>
+            <button id="adminExportTasksBtn" class="btn-secondary" type="button">Export Tasks CSV</button>
+          </div>
+          <div id="adminTasks" class="admin-task-list"></div>
+        </article>
+      </section>
       <div class="form-wrapper" style="margin-bottom:16px;">
         <form id="adminChangePasswordForm" novalidate>
           <p class="required-note">Change password</p>
@@ -61,9 +131,25 @@
     </div>
   </section>
 
+  <div id="adminRequestModal" class="admin-modal" hidden>
+    <div class="admin-modal-backdrop" data-modal-close="1"></div>
+    <section class="admin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+      <header class="admin-modal-header">
+        <h3 id="adminModalTitle">Request Details</h3>
+        <button id="adminModalCloseBtn" type="button" class="btn-secondary admin-modal-close">Close</button>
+      </header>
+      <div id="adminModalBody" class="admin-modal-body"></div>
+      <footer class="admin-modal-actions">
+        <button id="adminModalExportBtn" type="button" class="btn-secondary">Export JSON</button>
+        <button id="adminModalPrintBtn" type="button" class="btn-secondary">Print</button>
+        <button id="adminModalPdfBtn" type="button" class="btn-submit">Save as PDF</button>
+      </footer>
+    </section>
+  </div>
+
   <footer></footer>
-  <script src="/intake-config.js"></script>
-  <script src="/main.js"></script>
-  <script src="/admin.js"></script>
+  <script src="/intake-config.js?v=20260714-5"></script>
+  <script src="/main.js?v=20260714-5"></script>
+  <script src="/admin.js?v=20260714-5"></script>
 </body>
 </html>

@@ -329,15 +329,21 @@
     if (!cfg) {
       return null;
     }
+    const anonKey = String(cfg.supabaseAnonKey || '');
+    const hasMaskedKey = /^\*+$/.test(anonKey);
+    const hasPlaceholderKey = anonKey.indexOf('YOUR_SUPABASE_ANON_KEY') >= 0 || anonKey.toLowerCase().indexOf('placeholder') >= 0;
+    const hasValidKeyPrefix = anonKey.indexOf('sb_publishable_') === 0 || anonKey.indexOf('eyJ') === 0;
     const hasSupabase =
       cfg.supabaseUrl &&
-      cfg.supabaseAnonKey &&
+      anonKey &&
       cfg.supabaseUrl.indexOf('YOUR-PROJECT-REF') === -1 &&
-      cfg.supabaseAnonKey.indexOf('YOUR_SUPABASE_ANON_KEY') === -1;
+      !hasMaskedKey &&
+      !hasPlaceholderKey &&
+      hasValidKeyPrefix;
     return {
       hasSupabase: Boolean(hasSupabase),
       supabaseUrl: cfg.supabaseUrl || '',
-      supabaseAnonKey: cfg.supabaseAnonKey || '',
+      supabaseAnonKey: anonKey,
       emailEndpoint: cfg.emailEndpoint || 'https://formsubmit.co/ajax/payroll@laborreadyny.xyz'
     };
   }

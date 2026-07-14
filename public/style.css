@@ -51,7 +51,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  min-height: 104px;
+  min-height: 118px;
   z-index: 200;
   background: linear-gradient(105deg, rgba(7, 20, 42, 0.78), rgba(12, 33, 62, 0.66) 55%, rgba(10, 28, 53, 0.76));
   backdrop-filter: blur(22px);
@@ -59,7 +59,7 @@ header {
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   box-shadow: 0 16px 40px rgba(4, 10, 22, 0.56);
-  overflow: hidden;
+  overflow: visible;
 }
 
 header::before {
@@ -82,13 +82,13 @@ header.scrolled {
 }
 
 body {
-  padding-top: 106px;
+  padding-top: 120px;
 }
 
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  min-height: 104px;
+  min-height: 118px;
   padding: 0.7rem 1.2rem;
   display: flex;
   align-items: center;
@@ -110,13 +110,13 @@ body {
 }
 
 .brand-logo {
-  height: 84px;
+  height: 98px;
   width: auto;
-  max-width: 320px;
+  max-width: 360px;
   object-fit: contain;
   filter: drop-shadow(0 0 18px rgba(255, 165, 0, 0.45));
   position: static;
-  transform: none;
+  transform: translateY(7px);
   pointer-events: auto;
 }
 
@@ -1204,6 +1204,10 @@ form {
   backdrop-filter: blur(16px);
 }
 
+.form-wrapper form {
+  max-width: 100%;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1211,6 +1215,8 @@ form {
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1.8rem;
 }
 
@@ -1235,6 +1241,7 @@ input, select, textarea {
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   font-size: 0.95rem;
+  min-height: 50px;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -1320,6 +1327,294 @@ textarea {
   background: rgba(8, 25, 47, 0.65);
   color: rgba(255, 255, 255, 0.95);
   padding: 0.55rem 0.7rem;
+}
+
+.admin-toolbar {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.25rem;
+}
+
+.admin-queue-insights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 0.9rem;
+}
+
+.admin-insight-card {
+  border: 1px solid rgba(255, 188, 70, 0.24);
+  border-radius: 12px;
+  background: rgba(8, 25, 47, 0.46);
+  padding: 0.7rem 0.8rem;
+}
+
+.admin-insight-card p {
+  margin: 0 0 0.3rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-insight-card strong {
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 1.26rem;
+}
+
+.admin-filter-shell {
+  border: 1px solid rgba(255, 188, 70, 0.24);
+  border-radius: 14px;
+  padding: 0.9rem;
+  margin: 0 0 1rem;
+  background: rgba(8, 25, 47, 0.42);
+}
+
+.admin-filter-grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-filter-grid input,
+.admin-filter-grid select {
+  width: 100%;
+}
+
+.admin-filter-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.admin-visible-count {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.9rem;
+}
+
+.admin-request-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 1rem 0;
+}
+
+.admin-request-actions .btn-secondary {
+  width: 100%;
+  margin: 0;
+  justify-content: center;
+}
+
+.admin-request-actions .btn-submit {
+  width: 100%;
+  margin: 0;
+  justify-content: center;
+}
+
+.admin-dashboard-grid {
+  margin-bottom: 1rem;
+}
+
+.admin-dashboard-card {
+  display: block;
+}
+
+.admin-task-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 0.75rem;
+}
+
+.admin-task-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.admin-task-card {
+  border: 1px solid rgba(8, 24, 52, 0.12);
+  border-radius: 12px;
+  padding: 0.9rem;
+  background: #f8fbff;
+}
+
+.admin-task-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.admin-task-meta {
+  margin: 0.45rem 0 0.5rem;
+  color: #3a4d67;
+  font-size: 0.9rem;
+}
+
+.admin-task-notes {
+  margin: 0 0 0.7rem;
+  white-space: pre-wrap;
+  color: #0d213e;
+}
+
+.admin-task-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.admin-task-actions select {
+  min-width: 150px;
+}
+
+@media (max-width: 720px) {
+  .admin-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-task-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+body.admin-modal-open {
+  overflow: hidden;
+}
+
+.admin-modal[hidden] {
+  display: none;
+}
+
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.admin-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 10, 26, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.admin-modal-dialog {
+  position: relative;
+  max-width: min(1040px, 94vw);
+  max-height: 88vh;
+  margin: 5vh auto;
+  border: 1px solid rgba(255, 188, 70, 0.42);
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(15, 39, 67, 0.96), rgba(7, 20, 38, 0.96));
+  box-shadow: 0 24px 68px rgba(3, 10, 24, 0.7);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-modal-header,
+.admin-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 188, 70, 0.2);
+}
+
+.admin-modal-header h3 {
+  margin: 0;
+  color: #ffbc46;
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+}
+
+.admin-modal-actions {
+  border-top: 1px solid rgba(255, 188, 70, 0.2);
+  border-bottom: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.admin-modal-body {
+  overflow: auto;
+  padding: 1.2rem;
+}
+
+.admin-detail-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.1rem;
+}
+
+.admin-detail-meta article {
+  border: 1px solid rgba(255, 188, 70, 0.24);
+  border-radius: 12px;
+  background: rgba(8, 25, 47, 0.5);
+  padding: 0.75rem 0.85rem;
+}
+
+.admin-detail-meta .admin-detail-source {
+  grid-column: 1 / -1;
+}
+
+.admin-detail-meta span {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 0.35rem;
+}
+
+.admin-detail-meta strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.95rem;
+}
+
+.admin-form-view h4 {
+  margin: 0 0 0.8rem;
+  color: #ffbc46;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.98rem;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-form-field {
+  border: 1px solid rgba(255, 188, 70, 0.2);
+  border-radius: 12px;
+  background: rgba(8, 25, 47, 0.45);
+  padding: 0.7rem 0.8rem;
+}
+
+.admin-form-label {
+  margin: 0 0 0.35rem;
+  color: rgba(255, 255, 255, 0.68);
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+}
+
+.admin-form-value {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.94rem;
+  line-height: 1.55;
 }
 
 .ambient-construction {
@@ -1548,7 +1843,7 @@ textarea {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 86px;
+    padding-top: 94px;
   }
 
   .page-hero {
@@ -1566,7 +1861,7 @@ textarea {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.45rem;
-    min-height: 84px;
+    min-height: 92px;
     padding: 0.42rem 0.9rem;
   }
 
@@ -1578,11 +1873,11 @@ textarea {
   }
   
   .brand-logo {
-    height: 68px;
+    height: 76px;
     width: auto;
     max-width: 240px;
     box-shadow: none;
-    transform: none;
+    transform: translateY(3px);
   }
 
   .brand-text {
@@ -1759,6 +2054,25 @@ textarea {
     text-align: center;
   }
 
+  .admin-request-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-detail-meta,
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-modal-dialog {
+    margin: 4vh auto;
+    max-height: 92vh;
+  }
+
+  .admin-modal-header,
+  .admin-modal-actions {
+    padding: 0.85rem 0.9rem;
+  }
+
   .header-inner > .btn-cta {
     display: none !important;
   }
@@ -1766,7 +2080,7 @@ textarea {
 
 @media (max-width: 480px) {
   body {
-    padding-top: 80px;
+    padding-top: 90px;
   }
 
   .page-hero {
@@ -1776,15 +2090,15 @@ textarea {
   .header-inner {
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 0.45rem;
-    min-height: 78px;
+    min-height: 84px;
     padding: 0.28rem 0.7rem;
   }
 
   .brand-logo {
-    height: 60px;
+    height: 70px;
     width: auto;
     max-width: 200px;
-    transform: none;
+    transform: translateY(2px);
   }
 
   .brand {

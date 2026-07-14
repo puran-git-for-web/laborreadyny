@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         source: "/",
         destination: "/index.html",
       },
+      {
+        source: "/admin",
+        destination: "/admin.html",
+      },
       ...htmlRoutes.map((route) => ({
         source: `/${route}`,
         destination: `/${route}.html`,
